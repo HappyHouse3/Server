@@ -4,15 +4,15 @@ import com.ssafy.happyhouse.entity.Reply;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class BoardDto {
+public class ReplyDto {
     private Integer id;
-    private String title;
     private String content;
     private String userId;
     private String password;
-    List<ReplyDto> replyList;
+    private LocalDateTime regTime;
 }

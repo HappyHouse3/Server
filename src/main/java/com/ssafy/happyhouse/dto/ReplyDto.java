@@ -1,18 +1,17 @@
-package com.ssafy.happyhouse.repository.dto;
+package com.ssafy.happyhouse.dto;
 
-import com.ssafy.happyhouse.entity.Reply;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-public class BoardDto {
+public class ReplyDto {
     private Integer id;
-    private String title;
     private String content;
+    private String userNo;
     private String userId;
     private String password;
-    List<ReplyDto> replyList;
+    private LocalDateTime regTime;
 }

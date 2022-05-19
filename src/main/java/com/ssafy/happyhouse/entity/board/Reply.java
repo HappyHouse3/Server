@@ -1,7 +1,7 @@
-package com.ssafy.happyhouse.entity;
+package com.ssafy.happyhouse.entity.board;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import com.ssafy.happyhouse.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,7 +21,8 @@ public class Reply {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @Embedded
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Lob

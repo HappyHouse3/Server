@@ -19,7 +19,7 @@ public class BaseAddress {
     private String gugunName;
 
     @JoinColumn(name = "dong_code")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Dong dong;
 
     private String dongName;

@@ -1,11 +1,15 @@
 package com.ssafy.happyhouse.service;
 
-import com.ssafy.happyhouse.entity.Board;
-import com.ssafy.happyhouse.entity.Reply;
+import com.ssafy.happyhouse.dto.BoardDto;
+import com.ssafy.happyhouse.dto.BoardInputDto;
+import com.ssafy.happyhouse.dto.ReplyDto;
+import com.ssafy.happyhouse.entity.User;
+import com.ssafy.happyhouse.entity.board.Board;
+import com.ssafy.happyhouse.entity.board.QnaBoard;
+import com.ssafy.happyhouse.entity.board.Reply;
 import com.ssafy.happyhouse.repository.BoardRepository;
 import com.ssafy.happyhouse.repository.ReplyRespository;
-import com.ssafy.happyhouse.repository.dto.BoardDto;
-import com.ssafy.happyhouse.repository.dto.ReplyDto;
+import com.ssafy.happyhouse.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,27 +19,32 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
-public class BoardService {
+public class QnaService {
 
     private final BoardRepository boardRepository;
+    private final UserRepository userRepository;
     private final ReplyRespository replyRespository;
 
     @Transactional
-    public Integer saveBoard(Board board) {
+    public Integer saveBoard(BoardInputDto boardDto) {
+        QnaBoard board = new QnaBoard();
+        User user = userRepository.findById(boardDto.getUserNo());
+        board.setTitle(boardDto.getTitle());
+        board.setContent(boardDto.getContent());
+        board.setUser(user);
         boardRepository.save(board);
         return board.getId();
     }
 
     public BoardDto findOne(Integer id) {
         Board b = boardRepository.findById(id);
-        return new BoardDto(b.getId(), b.getTitle(), b.getContent(), b.getUser().getUserId(), b.getUser().getPassword(), getReplyList(b));
+        return new BoardDto(b.getId(), b.getTitle(), b.getContent(), b.getUser().getUserId(), b.getUser().getPassword(), b.getRegTime().toLocalDate(), getReplyList(b));
     }
 
     public List<BoardDto> findAll() {
-        List<Board> result = boardRepository.findAll();
+        List<QnaBoard> result = boardRepository.findAllQnaBoard();
         return result.stream()
-                .map(b -> new BoardDto(b.getId(), b.getTitle(), b.getContent(), b.getUser().getUserId(), b.getUser().getPassword(), getReplyList(b)))
+                .map(b -> new BoardDto(b.getId(), b.getTitle(), b.getContent(), b.getUser().getUserId(), b.getUser().getPassword(), b.getRegTime().toLocalDate(), getReplyList(b)))
                 .collect(Collectors.toList());
     }
 
@@ -78,6 +87,6 @@ public class BoardService {
     }
 
     private List<ReplyDto> getReplyList(Board b) {
-        return b.getReplyList().stream().map(r -> new ReplyDto(r.getId(), r.getContent(), r.getUser().getUserId(), r.getUser().getPassword(), r.getRegTime())).collect(Collectors.toList());
+        return b.getReplyList().stream().map(r -> new ReplyDto(r.getId(), r.getContent(), String.valueOf(r.getUser().getId()) ,r.getUser().getUserId(), r.getUser().getPassword(), r.getRegTime())).collect(Collectors.toList());
     }
 }

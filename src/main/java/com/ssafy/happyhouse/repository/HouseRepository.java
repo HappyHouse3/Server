@@ -1,10 +1,11 @@
 package com.ssafy.happyhouse.repository;
 
+import com.ssafy.happyhouse.entity.house.Dong;
 import com.ssafy.happyhouse.entity.house.HouseDeal;
 import com.ssafy.happyhouse.entity.house.HouseInfo;
-import com.ssafy.happyhouse.repository.dto.DongDto;
-import com.ssafy.happyhouse.repository.dto.HouseInfoDto;
-import com.ssafy.happyhouse.repository.dto.SidoGugunCodeDto;
+import com.ssafy.happyhouse.dto.DongDto;
+import com.ssafy.happyhouse.dto.SidoGugunCodeDto;
+import com.ssafy.happyhouse.entity.house.Sido;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -52,5 +53,9 @@ public class HouseRepository {
         return em.createQuery("select hd from HouseDeal hd join fetch hd.houseInfo hi where substring(hi.aptCode, 1, 4) = :aptcode")
                 .setParameter("aptcode", aptcode)
                 .getResultList();
+    }
+
+    public Sido findSidoById(String sidoCode) {
+        return em.find(Sido.class, sidoCode);
     }
 }

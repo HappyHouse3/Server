@@ -1,4 +1,4 @@
-package com.ssafy.happyhouse.repository.dto;
+package com.ssafy.happyhouse.dto;
 
 import com.ssafy.happyhouse.entity.house.Dong;
 import com.ssafy.happyhouse.entity.house.HouseDeal;
@@ -21,4 +21,5 @@ public class HouseInfoDto {
     private String lat;
     private String lng;
     private String img;
+    private String searchKeyword;
 }

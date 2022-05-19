@@ -1,4 +1,4 @@
-package com.ssafy.happyhouse.entity;
+package com.ssafy.happyhouse.entity.board;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

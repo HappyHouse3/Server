@@ -2,10 +2,10 @@ package com.ssafy.happyhouse.service;
 
 import com.ssafy.happyhouse.entity.house.HouseDeal;
 import com.ssafy.happyhouse.entity.house.HouseInfo;
-import com.ssafy.happyhouse.repository.dto.DongDto;
-import com.ssafy.happyhouse.repository.dto.HouseDealDto;
-import com.ssafy.happyhouse.repository.dto.HouseInfoDto;
-import com.ssafy.happyhouse.repository.dto.SidoGugunCodeDto;
+import com.ssafy.happyhouse.dto.DongDto;
+import com.ssafy.happyhouse.dto.HouseDealDto;
+import com.ssafy.happyhouse.dto.HouseInfoDto;
+import com.ssafy.happyhouse.dto.SidoGugunCodeDto;
 import com.ssafy.happyhouse.repository.HouseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class HouseService {
         return houseInfos.stream()
                 .map(hi -> new HouseInfoDto(hi.getAptCode(), hi.getAptName(),
                         hi.getDong().getDongCode(), hi.getDong().getDongName(),
-                        hi.getBuildYear(), hi.getJibun(), hi.getLat(), hi.getLng(), hi.getImg()))
+                        hi.getBuildYear(), hi.getJibun(), hi.getLat(), hi.getLng(), hi.getImg(), hi.getDong().getGugunName() + hi.getDongName() + " " + hi.getAptName() + "아파트"))
                 .collect(Collectors.toList());
     }
 

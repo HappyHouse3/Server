@@ -1,11 +1,12 @@
-package com.ssafy.happyhouse.api;
+package com.ssafy.happyhouse.api.board;
 
-import com.ssafy.happyhouse.entity.Board;
-import com.ssafy.happyhouse.entity.QnaBoard;
-import com.ssafy.happyhouse.entity.Reply;
+import com.ssafy.happyhouse.dto.BoardInputDto;
 import com.ssafy.happyhouse.entity.User;
-import com.ssafy.happyhouse.repository.dto.BoardDto;
-import com.ssafy.happyhouse.service.BoardService;
+import com.ssafy.happyhouse.entity.board.Board;
+import com.ssafy.happyhouse.entity.board.QnaBoard;
+import com.ssafy.happyhouse.entity.board.Reply;
+import com.ssafy.happyhouse.dto.BoardDto;
+import com.ssafy.happyhouse.service.RegionBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,17 +14,17 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
-
+@CrossOrigin("*")
 @RequiredArgsConstructor
-@RequestMapping("/api/qna")
+@RequestMapping("/api/regionboard/{sido}")
 @RestController
-public class QnaBoardApiController {
+public class RegionBoardApiController {
 
-    private final BoardService boardService;
+    private final RegionBoardService boardService;
 
     @GetMapping
-    public ResponseEntity<?> list() {
-        return new ResponseEntity(boardService.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> list(@PathVariable String sido) {
+        return new ResponseEntity(boardService.findAll(sido), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -33,12 +34,8 @@ public class QnaBoardApiController {
 
 
     @PostMapping
-    public ResponseEntity<Integer> save(@RequestBody BoardDto boardDto, HttpSession session) {
-        Board board = new QnaBoard();
-        board.setTitle(boardDto.getTitle());
-        board.setContent(boardDto.getContent());
-        board.setUser(new User(boardDto.getUserId(), boardDto.getPassword()));
-        return new ResponseEntity<>(boardService.saveBoard(board), HttpStatus.OK);
+    public ResponseEntity<Integer> save(@PathVariable String sido, @RequestBody BoardInputDto boardDto, HttpSession session) {
+        return new ResponseEntity<>(boardService.saveBoard(boardDto, sido), HttpStatus.OK);
     }
 
     @PostMapping("/{id}/reply")

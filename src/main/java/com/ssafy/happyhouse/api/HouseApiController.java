@@ -1,22 +1,20 @@
 package com.ssafy.happyhouse.api;
 
-import com.ssafy.happyhouse.repository.dto.DongDto;
-import com.ssafy.happyhouse.repository.dto.HouseDealDto;
-import com.ssafy.happyhouse.repository.dto.HouseInfoDto;
-import com.ssafy.happyhouse.repository.dto.SidoGugunCodeDto;
+import com.ssafy.happyhouse.dto.DongDto;
+import com.ssafy.happyhouse.dto.HouseDealDto;
+import com.ssafy.happyhouse.dto.HouseInfoDto;
+import com.ssafy.happyhouse.dto.SidoGugunCodeDto;
 import com.ssafy.happyhouse.service.HouseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RequestMapping("/api/house")
 @Slf4j
 @RequiredArgsConstructor

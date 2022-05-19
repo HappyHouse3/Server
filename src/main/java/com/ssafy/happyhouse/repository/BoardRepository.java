@@ -1,9 +1,12 @@
 package com.ssafy.happyhouse.repository;
 
-import com.ssafy.happyhouse.entity.Board;
+import com.ssafy.happyhouse.entity.board.Board;
+import com.ssafy.happyhouse.entity.board.Notice;
+import com.ssafy.happyhouse.entity.board.QnaBoard;
+import com.ssafy.happyhouse.entity.board.RegionBoard;
+import com.ssafy.happyhouse.service.RegionBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -22,8 +25,19 @@ public class BoardRepository {
         return em.find(Board.class, id);
     }
 
-    public List<Board> findAll() {
-        return em.createQuery("select b from Board b join fetch b.user", Board.class)
+    public List<Notice> findAllNoticeBoard() {
+        return em.createQuery("select b from Notice b join fetch b.user", Notice.class)
+                .getResultList();
+    }
+
+    public List<QnaBoard> findAllQnaBoard() {
+        return em.createQuery("select q from QnaBoard q join fetch q.user", QnaBoard.class)
+                .getResultList();
+    }
+
+    public List<RegionBoard> findAllRegionBoard(String sido) {
+        return em.createQuery("select b from RegionBoard b join fetch b.user where b.sido = :sido", RegionBoard.class)
+                .setParameter("sido", sido)
                 .getResultList();
     }
 

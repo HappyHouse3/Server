@@ -5,7 +5,7 @@ import com.ssafy.happyhouse.dto.board.BoardUpdateDto;
 import com.ssafy.happyhouse.entity.User;
 import com.ssafy.happyhouse.entity.board.Reply;
 import com.ssafy.happyhouse.dto.board.BoardDto;
-import com.ssafy.happyhouse.service.RegionBoardService;
+import com.ssafy.happyhouse.service.board.RegionBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

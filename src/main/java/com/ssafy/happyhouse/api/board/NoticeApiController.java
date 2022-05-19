@@ -2,7 +2,7 @@ package com.ssafy.happyhouse.api.board;
 
 import com.ssafy.happyhouse.dto.board.BoardInputDto;
 import com.ssafy.happyhouse.dto.board.BoardUpdateDto;
-import com.ssafy.happyhouse.service.NoticeService;
+import com.ssafy.happyhouse.service.board.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

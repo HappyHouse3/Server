@@ -4,7 +4,6 @@ import com.ssafy.happyhouse.entity.board.Board;
 import com.ssafy.happyhouse.entity.board.Notice;
 import com.ssafy.happyhouse.entity.board.QnaBoard;
 import com.ssafy.happyhouse.entity.board.RegionBoard;
-import com.ssafy.happyhouse.service.RegionBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

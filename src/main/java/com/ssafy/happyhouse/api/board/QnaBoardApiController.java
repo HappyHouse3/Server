@@ -1,9 +1,7 @@
 package com.ssafy.happyhouse.api.board;
 
 import com.ssafy.happyhouse.dto.board.*;
-import com.ssafy.happyhouse.entity.board.Reply;
-import com.ssafy.happyhouse.entity.User;
-import com.ssafy.happyhouse.service.QnaService;
+import com.ssafy.happyhouse.service.board.QnaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

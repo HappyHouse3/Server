@@ -1,4 +1,4 @@
-package com.ssafy.happyhouse.service;
+package com.ssafy.happyhouse.service.board;
 
 import com.ssafy.happyhouse.dto.board.BoardInputDto;
 import com.ssafy.happyhouse.dto.board.BoardUpdateDto;

@@ -1,10 +1,9 @@
 package com.ssafy.happyhouse.repository;
 
-import com.ssafy.happyhouse.entity.house.Dong;
 import com.ssafy.happyhouse.entity.house.HouseDeal;
 import com.ssafy.happyhouse.entity.house.HouseInfo;
-import com.ssafy.happyhouse.dto.DongDto;
-import com.ssafy.happyhouse.dto.SidoGugunCodeDto;
+import com.ssafy.happyhouse.dto.house.DongDto;
+import com.ssafy.happyhouse.dto.house.SidoGugunCodeDto;
 import com.ssafy.happyhouse.entity.house.Sido;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

@@ -1,11 +1,10 @@
 package com.ssafy.happyhouse.api.board;
 
-import com.ssafy.happyhouse.dto.BoardInputDto;
+import com.ssafy.happyhouse.dto.board.BoardInputDto;
+import com.ssafy.happyhouse.dto.board.BoardUpdateDto;
 import com.ssafy.happyhouse.entity.User;
-import com.ssafy.happyhouse.entity.board.Board;
-import com.ssafy.happyhouse.entity.board.QnaBoard;
 import com.ssafy.happyhouse.entity.board.Reply;
-import com.ssafy.happyhouse.dto.BoardDto;
+import com.ssafy.happyhouse.dto.board.BoardDto;
 import com.ssafy.happyhouse.service.RegionBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -48,8 +47,7 @@ public class RegionBoardApiController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Integer> update(@PathVariable Integer id, @RequestBody QnaBoard board) {
-        System.out.println("1232board = " + board);
+    public ResponseEntity<Integer> update(@PathVariable Integer id, @RequestBody BoardUpdateDto board) {
         boardService.updateBoard(id, board);
         return new ResponseEntity<>(1, HttpStatus.OK);
     }

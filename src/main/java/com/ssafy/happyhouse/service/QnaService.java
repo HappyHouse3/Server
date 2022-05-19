@@ -1,8 +1,6 @@
 package com.ssafy.happyhouse.service;
 
-import com.ssafy.happyhouse.dto.BoardDto;
-import com.ssafy.happyhouse.dto.BoardInputDto;
-import com.ssafy.happyhouse.dto.ReplyDto;
+import com.ssafy.happyhouse.dto.board.*;
 import com.ssafy.happyhouse.entity.User;
 import com.ssafy.happyhouse.entity.board.Board;
 import com.ssafy.happyhouse.entity.board.QnaBoard;
@@ -49,7 +47,7 @@ public class QnaService {
     }
 
     @Transactional
-    public Integer updateBoard(Integer id, Board updateBoardDto) throws IllegalArgumentException {
+    public Integer updateBoard(Integer id, BoardUpdateDto updateBoardDto) {
         try {
             Board board = boardRepository.findById(id);
             board.setTitle(updateBoardDto.getTitle());
@@ -67,20 +65,26 @@ public class QnaService {
     }
 
     @Transactional
-    public void saveReply(Integer boardId, Reply reply) {
+    public void saveReply(Integer boardId, ReplyInputDto replyInputDto) {
+        User user = userRepository.findById(replyInputDto.getUserNo());
+
+        Reply reply = new Reply();
+        reply.setContent(replyInputDto.getContent());
+        reply.setUser(user);
+
         Board board = boardRepository.findById(boardId);
         board.addReply(reply);
     }
 
     @Transactional
-    public void updateReply(Integer replyId, Reply updateDto) {
+    public void updateReply(Integer replyId, ReplyUpdateDto updateDto) {
         Reply reply = replyRespository.findById(replyId)
                 .orElseThrow(() -> new IllegalArgumentException("ID가 존재하지 않습니다."));
         reply.setContent(updateDto.getContent());
     }
 
     @Transactional
-    public void deleteReply(Integer boardId, Integer replyId) {
+    public void deleteReply(Integer replyId) {
         Reply reply = replyRespository.findById(replyId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 ID가 존재하지 않습니다."));
         replyRespository.delete(reply);

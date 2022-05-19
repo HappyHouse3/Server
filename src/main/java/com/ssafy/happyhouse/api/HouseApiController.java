@@ -1,9 +1,9 @@
 package com.ssafy.happyhouse.api;
 
-import com.ssafy.happyhouse.dto.DongDto;
-import com.ssafy.happyhouse.dto.HouseDealDto;
-import com.ssafy.happyhouse.dto.HouseInfoDto;
-import com.ssafy.happyhouse.dto.SidoGugunCodeDto;
+import com.ssafy.happyhouse.dto.house.DongDto;
+import com.ssafy.happyhouse.dto.house.HouseDealDto;
+import com.ssafy.happyhouse.dto.house.HouseInfoDto;
+import com.ssafy.happyhouse.dto.house.SidoGugunCodeDto;
 import com.ssafy.happyhouse.service.HouseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

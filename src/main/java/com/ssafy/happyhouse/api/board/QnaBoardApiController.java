@@ -1,11 +1,8 @@
 package com.ssafy.happyhouse.api.board;
 
-import com.ssafy.happyhouse.dto.BoardInputDto;
-import com.ssafy.happyhouse.entity.board.Board;
-import com.ssafy.happyhouse.entity.board.QnaBoard;
+import com.ssafy.happyhouse.dto.board.*;
 import com.ssafy.happyhouse.entity.board.Reply;
 import com.ssafy.happyhouse.entity.User;
-import com.ssafy.happyhouse.dto.BoardDto;
 import com.ssafy.happyhouse.service.QnaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,26 +37,20 @@ public class QnaBoardApiController {
     }
 
     @PostMapping("/{id}/reply")
-    public ResponseEntity<Integer> replySave(@PathVariable Integer id, @RequestBody BoardDto boardDto) {
-        Reply reply = new Reply();
-        reply.setContent(boardDto.getContent());
-        reply.setUser(new User(boardDto.getUserId(), boardDto.getPassword()));
-        boardService.saveReply(id, reply);
+    public ResponseEntity<Integer> replySave(@PathVariable Integer id, @RequestBody ReplyInputDto replyInputDto) {
+        boardService.saveReply(id, replyInputDto);
         return new ResponseEntity<>(1, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Integer> update(@PathVariable Integer id, @RequestBody QnaBoard board) {
-        System.out.println("1232board = " + board);
-        boardService.updateBoard(id, board);
-        return new ResponseEntity<>(1, HttpStatus.OK);
+    public ResponseEntity<Integer> update(@PathVariable Integer id, @RequestBody BoardUpdateDto updateDto) {
+        boardService.updateBoard(id, updateDto);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
     @PutMapping("/{boardId}/reply/{replyId}")
-    public ResponseEntity<Integer> replySave(@PathVariable Integer boardId, @PathVariable Integer replyId, @RequestBody BoardDto boardDto) {
-        Reply reply = new Reply();
-        reply.setContent(boardDto.getContent());
-        boardService.updateReply(replyId, reply);
+    public ResponseEntity<Integer> replyUpdate(@PathVariable Integer boardId, @PathVariable Integer replyId, @RequestBody ReplyUpdateDto replyUpdateDto) {
+        boardService.updateReply(replyId, replyUpdateDto);
         return new ResponseEntity<>(1, HttpStatus.OK);
     }
 
@@ -70,8 +61,8 @@ public class QnaBoardApiController {
     }
 
     @DeleteMapping("/{boardId}/reply/{replyId}")
-    public ResponseEntity<Integer> deleteReply(@PathVariable Integer boardId, @PathVariable Integer replyId) {
-        boardService.deleteReply(boardId, replyId);
+    public ResponseEntity<Integer> deleteReply(@PathVariable Integer replyId) {
+        boardService.deleteReply(replyId);
         return new ResponseEntity<>(1, HttpStatus.OK);
     }
 }

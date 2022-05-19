@@ -1,17 +1,19 @@
-package com.ssafy.happyhouse.dto;
+package com.ssafy.happyhouse.dto.board;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class BoardInputDto {
+public class BoardDto {
+    private Integer id;
     private String title;
     private String content;
-    private Integer userNo;
     private String userId;
     private String password;
     private LocalDate regTime;
+    List<ReplyDto> replyList;
 }

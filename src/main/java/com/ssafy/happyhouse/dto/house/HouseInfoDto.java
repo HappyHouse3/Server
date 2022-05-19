@@ -1,4 +1,4 @@
-package com.ssafy.happyhouse.dto;
+package com.ssafy.happyhouse.dto.house;
 
 import com.ssafy.happyhouse.entity.house.Dong;
 import com.ssafy.happyhouse.entity.house.HouseDeal;

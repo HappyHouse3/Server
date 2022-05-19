@@ -2,10 +2,10 @@ package com.ssafy.happyhouse.service;
 
 import com.ssafy.happyhouse.entity.house.HouseDeal;
 import com.ssafy.happyhouse.entity.house.HouseInfo;
-import com.ssafy.happyhouse.dto.DongDto;
-import com.ssafy.happyhouse.dto.HouseDealDto;
-import com.ssafy.happyhouse.dto.HouseInfoDto;
-import com.ssafy.happyhouse.dto.SidoGugunCodeDto;
+import com.ssafy.happyhouse.dto.house.DongDto;
+import com.ssafy.happyhouse.dto.house.HouseDealDto;
+import com.ssafy.happyhouse.dto.house.HouseInfoDto;
+import com.ssafy.happyhouse.dto.house.SidoGugunCodeDto;
 import com.ssafy.happyhouse.repository.HouseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

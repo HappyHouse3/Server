@@ -1,13 +1,12 @@
 package com.ssafy.happyhouse.service;
 
-import com.ssafy.happyhouse.dto.BoardDto;
-import com.ssafy.happyhouse.dto.BoardInputDto;
-import com.ssafy.happyhouse.dto.NoticeDto;
+import com.ssafy.happyhouse.dto.board.BoardInputDto;
+import com.ssafy.happyhouse.dto.board.BoardUpdateDto;
+import com.ssafy.happyhouse.dto.house.NoticeDto;
 import com.ssafy.happyhouse.entity.User;
 import com.ssafy.happyhouse.entity.board.Board;
 import com.ssafy.happyhouse.entity.board.Notice;
 import com.ssafy.happyhouse.repository.BoardRepository;
-import com.ssafy.happyhouse.repository.ReplyRespository;
 import com.ssafy.happyhouse.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -53,7 +52,7 @@ public class NoticeService {
     }
 
     @Transactional
-    public Integer updateBoard(Integer id, Board updateBoardDto) throws IllegalArgumentException {
+    public Integer updateBoard(Integer id, BoardUpdateDto updateBoardDto) throws IllegalArgumentException {
         try {
             Board board = boardRepository.findById(id);
             board.setTitle(updateBoardDto.getTitle());

@@ -3,7 +3,6 @@ package com.ssafy.happyhouse.repository;
 import com.ssafy.happyhouse.entity.board.Board;
 import com.ssafy.happyhouse.entity.board.Notice;
 import com.ssafy.happyhouse.entity.board.QnaBoard;
-import com.ssafy.happyhouse.entity.board.RegionBoard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -34,11 +33,11 @@ public class BoardRepository {
                 .getResultList();
     }
 
-    public List<RegionBoard> findAllRegionBoard(String sido) {
-        return em.createQuery("select b from RegionBoard b join fetch b.user where b.sido = :sido", RegionBoard.class)
-                .setParameter("sido", sido)
-                .getResultList();
-    }
+//    public List<RegionBoard> findAllRegionBoard(String sido) {
+//        return em.createQuery("select b from RegionBoard b join fetch b.user where b.sido = :sido", RegionBoard.class)
+//                .setParameter("sido", sido)
+//                .getResultList();
+//    }
 
     public void delete(Board board) {
         em.remove(board);

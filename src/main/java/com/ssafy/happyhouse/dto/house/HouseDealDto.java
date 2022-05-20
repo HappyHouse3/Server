@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class HouseDealDto {
-    private Integer id;
+    private Long id;
     private String aptName;
     private String dealAmount;
     private Integer dealYear;
@@ -14,6 +14,4 @@ public class HouseDealDto {
     private Integer dealDay;
     private String area;
     private String floor;
-    private String type;
-    private String rentMoney;
 }

@@ -9,33 +9,27 @@ import javax.persistence.*;
 @Table(name = "housedeal")
 public class HouseDeal {
     @Id @Column(nullable = false) @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @JoinColumn(name="apt_code")
     @ManyToOne(fetch = FetchType.LAZY)
     private HouseInfo houseInfo;
 
-    @Column(name="dealAmount", length=20)
+    @Column(length=20)
     private String dealAmount;
 
-    @Column(name="dealYear")
     private Integer dealYear;
 
-    @Column(name="dealMonth")
     private Integer dealMonth;
 
-    @Column(name="dealDay")
     private Integer dealDay;
 
     @Column(length=30)
     private String area;
 
-    @Column(length=30)
+    @Column(length=4)
     private String floor;
 
-    @Column(length=30)
-    private String type;
-
-    @Column(name="rentMoney", length=30)
-    private String rentMoney;
+    @Column(length = 1)
+    private String cancelDealType;
 }

@@ -1,10 +1,9 @@
 package com.ssafy.happyhouse.repository;
 
+import com.ssafy.happyhouse.dto.house.SidoDto;
+import com.ssafy.happyhouse.entity.house.Dong;
 import com.ssafy.happyhouse.entity.house.HouseDeal;
 import com.ssafy.happyhouse.entity.house.HouseInfo;
-import com.ssafy.happyhouse.dto.house.DongDto;
-import com.ssafy.happyhouse.dto.house.SidoGugunCodeDto;
-import com.ssafy.happyhouse.entity.house.Sido;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -17,28 +16,24 @@ public class HouseRepository {
 
     private final EntityManager em;
 
-    public List<SidoGugunCodeDto> getSido() {
-        return em.createQuery("select new com.ssafy.happyhouse.dto.house.SidoGugunCodeDto(substring(s.sidoCode, 1, 2), s.sidoName, '쓰면안됨', '쓰면안됨') from Sido s order by s.sidoCode", SidoGugunCodeDto.class)
+    public List<String> getSido() {
+        List<String> resultList = em.createQuery("select distinct d.sidoName from Dong d ", String.class)
                 .getResultList();
+        resultList.stream()
+                .map(s -> new SidoDto(em.createQuery("select d.dongCode from Dong d where d.sidoName = :sidoName", String.class)
+                        .setParameter("sidoName", s)
+                        .getFirstResult(), s),)
     }
 
-    public List<SidoGugunCodeDto> getGugunInSido(String sido) {
-        return em.createQuery("" +
-                        "select new com.ssafy.happyhouse.dto.house.SidoGugunCodeDto('쓰면안됨', '쓰면안됨', substring(g.gugunCode, 1, 5), g.gugunName) " +
-                        "from Gugun g " +
-                        "where substring(g.gugunCode, 1, 2) = :sido order by g.gugunCode", SidoGugunCodeDto.class)
-                        .setParameter("sido", sido)
+    public List<String> getGugunInSido(String sidoName) {
+        return em.createQuery("select distinct d.gugunName from Dong d where d.sidoName = :sidoName and d.gugunName is not null", String.class)
+                        .setParameter("sidoName", sidoName)
                         .getResultList();
     }
 
-    public List<DongDto> getDongInGugun(String gugun){
-        String jpql =
-                "select distinct new com.ssafy.happyhouse.dto.house.DongDto(d.dongName, d.dongCode) " +
-                "from HouseInfo h join h.dong d on substring(d.dongCode, 1, 5) = :gugun " +
-                "order by d.dongName";
-
-         return em.createQuery(jpql, DongDto.class)
-                .setParameter("gugun", gugun)
+    public List<Dong> getDongInGugun(String gugunName){
+         return em.createQuery("select d from Dong d where d.gugunName = :gugunName and d.dongName is not null", Dong.class)
+                .setParameter("gugunName", gugunName)
                 .getResultList();
     }
 
@@ -52,9 +47,5 @@ public class HouseRepository {
         return em.createQuery("select hd from HouseDeal hd join fetch hd.houseInfo hi where substring(hi.aptCode, 1, 4) = :aptcode")
                 .setParameter("aptcode", aptcode)
                 .getResultList();
-    }
-
-    public Sido findSidoById(String sidoCode) {
-        return em.find(Sido.class, sidoCode);
     }
 }

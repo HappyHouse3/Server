@@ -1,9 +1,6 @@
 package com.ssafy.happyhouse.api;
 
-import com.ssafy.happyhouse.dto.house.DongDto;
-import com.ssafy.happyhouse.dto.house.HouseDealDto;
-import com.ssafy.happyhouse.dto.house.HouseInfoDto;
-import com.ssafy.happyhouse.dto.house.SidoGugunCodeDto;
+import com.ssafy.happyhouse.dto.house.*;
 import com.ssafy.happyhouse.service.HouseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,23 +21,23 @@ public class HouseApiController {
     private final HouseService houseService;
 
     @GetMapping("/sido")
-    public ResponseEntity<List<SidoGugunCodeDto>> findSido() throws Exception {
+    public ResponseEntity<List<SidoDto>> findSido() throws Exception {
         return new ResponseEntity(houseService.getSido(), HttpStatus.OK);
     }
 
-    @GetMapping("/gugun/{sido}")
-    public ResponseEntity<List<SidoGugunCodeDto>> getGugun(@PathVariable String sido) throws Exception {
-        return new ResponseEntity(houseService.getGugunInSido(sido), HttpStatus.OK);
+    @GetMapping("/gugun/{sidoName}")
+    public ResponseEntity<List<gugunDto>> getGugun(@PathVariable String sidoName) throws Exception {
+        return new ResponseEntity(houseService.getGugunInSido(sidoName), HttpStatus.OK);
     }
 
-    @GetMapping("/dong/{gugun}")
-    public ResponseEntity<List<DongDto>> getDong(@PathVariable String gugun) throws Exception {
-        return new ResponseEntity(houseService.getDongInGugun(gugun), HttpStatus.OK);
+    @GetMapping("/dong/{gugunName}")
+    public ResponseEntity<List<DongDto>> getDong(@PathVariable String gugunName) throws Exception {
+        return new ResponseEntity(houseService.getDongInGugun(gugunName), HttpStatus.OK);
     }
 
-    @GetMapping("/apt/{dong}")
-    public ResponseEntity<List<HouseInfoDto>> getAptInfo(@PathVariable String dong) throws Exception {
-        return new ResponseEntity(houseService.getAptInDong(dong), HttpStatus.OK);
+    @GetMapping("/apt/{dongCode}")
+    public ResponseEntity<List<HouseInfoDto>> getAptInfo(@PathVariable String dongCode) throws Exception {
+        return new ResponseEntity(houseService.getAptInDong(dongCode), HttpStatus.OK);
     }
 
     @GetMapping("/apt/{aptcode}/deal")

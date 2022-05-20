@@ -7,31 +7,66 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(name = "houseinfo")
 
-@Entity @Getter @Setter
+@Entity
+@Getter @Setter
+@Table(name = "houseinfo")
 public class HouseInfo {
     @Id @Column(nullable = false)
-    private Integer aptCode;
+    private Long aptCode;
 
-    @Column(nullable = false, length=50)
+    @Column(nullable = false, length=40)
     private String aptName;
 
     @JoinColumn(name = "dong_code")
     @ManyToOne(fetch = FetchType.LAZY)
     private Dong dong;
 
+    @Column(length = 40)
     private String dongName;
 
-    @Column(nullable = false)
+    @Column()
     private Integer buildYear;
 
-    @Column(nullable = false, length = 30)
+    @Column(length = 40)
+    private String roadName;
+
+    @Column(length = 5)
+    private String roadNameBonbun;
+
+    @Column(length = 5)
+    private String roadNameBubun;
+
+    @Column(length = 2)
+    private String roadNameSeq;
+
+    @Column(length = 1)
+    private String roadNameBasementCode;
+
+    @Column(length = 7)
+    private String roadNameCode;
+
+    @Column(length = 4)
+    private String bonbun;
+
+    @Column(length = 4)
+    private String bubun;
+
+    @Column(length = 5)
+    private String sigunguCode;
+
+    @Column(length = 5)
+    private String eubmyundongCode;
+
+    @Column(length = 1)
+    private String landCode;
+
+    @Column(length = 10)
     private String jibun;
 
-    @Column(nullable = false, length = 30)
+    @Column(length = 30)
     private String lat;
-    @Column(nullable = false, length = 30)
+
+    @Column(length = 30)
     private String lng;
-    private String img;
 }

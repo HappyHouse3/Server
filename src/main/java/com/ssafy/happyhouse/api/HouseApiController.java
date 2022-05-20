@@ -25,20 +25,16 @@ public class HouseApiController {
 
     @GetMapping("/sido")
     public ResponseEntity<List<SidoGugunCodeDto>> findSido() throws Exception {
-        log.debug("sido : {}", houseService.getSido());
         return new ResponseEntity(houseService.getSido(), HttpStatus.OK);
     }
 
     @GetMapping("/gugun/{sido}")
     public ResponseEntity<List<SidoGugunCodeDto>> getGugun(@PathVariable String sido) throws Exception {
-        System.out.println(sido);
         return new ResponseEntity(houseService.getGugunInSido(sido), HttpStatus.OK);
     }
 
     @GetMapping("/dong/{gugun}")
     public ResponseEntity<List<DongDto>> getDong(@PathVariable String gugun) throws Exception {
-        System.out.println("gugun = " + gugun);
-        System.out.println(houseService.getDongInGugun(gugun));
         return new ResponseEntity(houseService.getDongInGugun(gugun), HttpStatus.OK);
     }
 

@@ -1,10 +1,8 @@
 package com.ssafy.happyhouse.api.board;
 
-import com.ssafy.happyhouse.dto.board.BoardInputDto;
-import com.ssafy.happyhouse.dto.board.BoardUpdateDto;
+import com.ssafy.happyhouse.dto.board.*;
 import com.ssafy.happyhouse.entity.User;
 import com.ssafy.happyhouse.entity.board.Reply;
-import com.ssafy.happyhouse.dto.board.BoardDto;
 import com.ssafy.happyhouse.service.board.RegionBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,16 +31,13 @@ public class RegionBoardApiController {
 
 
     @PostMapping
-    public ResponseEntity<Integer> save(@PathVariable String sido, @RequestBody BoardInputDto boardDto, HttpSession session) {
+    public ResponseEntity<Integer> save(@PathVariable String sido, @RequestBody BoardInputDto boardDto) {
         return new ResponseEntity<>(boardService.saveBoard(boardDto, sido), HttpStatus.OK);
     }
 
     @PostMapping("/{id}/reply")
-    public ResponseEntity<Integer> replySave(@PathVariable Integer id, @RequestBody BoardDto boardDto) {
-        Reply reply = new Reply();
-        reply.setContent(boardDto.getContent());
-        reply.setUser(new User(boardDto.getUserId(), boardDto.getPassword()));
-        boardService.saveReply(id, reply);
+    public ResponseEntity<Integer> replySave(@PathVariable Integer id, @RequestBody ReplyInputDto replyDto) {
+        boardService.saveReply(id, replyDto);
         return new ResponseEntity<>(1, HttpStatus.OK);
     }
 
@@ -53,10 +48,8 @@ public class RegionBoardApiController {
     }
 
     @PutMapping("/{boardId}/reply/{replyId}")
-    public ResponseEntity<Integer> replySave(@PathVariable Integer boardId, @PathVariable Integer replyId, @RequestBody BoardDto boardDto) {
-        Reply reply = new Reply();
-        reply.setContent(boardDto.getContent());
-        boardService.updateReply(replyId, reply);
+    public ResponseEntity<Integer> replyUpdate(@PathVariable Integer boardId, @PathVariable Integer replyId, @RequestBody ReplyUpdateDto replyUpdateDto) {
+        boardService.updateReply(replyId, replyUpdateDto);
         return new ResponseEntity<>(1, HttpStatus.OK);
     }
 
@@ -68,7 +61,7 @@ public class RegionBoardApiController {
 
     @DeleteMapping("/{boardId}/reply/{replyId}")
     public ResponseEntity<Integer> deleteReply(@PathVariable Integer boardId, @PathVariable Integer replyId) {
-        boardService.deleteReply(boardId, replyId);
+        boardService.deleteReply(replyId);
         return new ResponseEntity<>(1, HttpStatus.OK);
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @CrossOrigin("*")
-@RequestMapping("/api/house")
+@RequestMapping("/api/map")
 @Slf4j
 @RequiredArgsConstructor
 @Controller

@@ -55,13 +55,13 @@ public class HouseRepository {
     }
 
     public List<Dong> getDongInGugun(String gugunCode){
-         return em.createQuery("select d from Dong d where substring(d.dongCode, 1, 4) = :gugunCode and d.dongName is not null and not(substring(d.dongCode, length(d.dongCode) - 2, 2) = '00')", Dong.class)
+         return em.createQuery("select d from Dong d where substring(d.dongCode, 1, 4) = :gugunCode and d.dongName is not null", Dong.class)
                 .setParameter("gugunCode", gugunCode)
                 .getResultList();
     }
 
     public List<HouseInfo> getAptInDong(String dongCode) {
-        return em.createQuery("select hi from HouseInfo hi join fetch hi.dong d where d.dongCode = :dongCode)")
+        return em.createQuery("select hi from HouseInfo hi join fetch hi.dong d where d.dongCode = :dongCode")
                 .setParameter("dongCode", dongCode)
                 .getResultList();
     }

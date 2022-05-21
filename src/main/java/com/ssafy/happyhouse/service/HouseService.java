@@ -36,7 +36,9 @@ public class HouseService {
         return houseInfos.stream()
                 .map(hi -> new HouseInfoDto(hi.getAptCode(), hi.getAptName(),
                         hi.getDong().getDongCode(), hi.getDong().getDongName(),
-                        hi.getBuildYear(), hi.getJibun(), hi.getLat(), hi.getLng(), hi.getDong().getGugunName() + hi.getDongName() + " " + hi.getAptName() + "아파트"))
+                        hi.getBuildYear(), hi.getJibun(), hi.getLat(), hi.getLng(),
+                        hi.getDong().getGugunName() + hi.getDongName() + " " + hi.getAptName() + "아파트",
+                        hi.getDong().getSidoName() + " " + hi.getDong().getGugunName() + " " + hi.getDongName() + " " + hi.getRoadName() + " " + String.valueOf(Long.parseLong(hi.getRoadNameBonbun()))))
                 .collect(Collectors.toList());
     }
 

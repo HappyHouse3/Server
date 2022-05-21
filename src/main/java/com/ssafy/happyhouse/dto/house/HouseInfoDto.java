@@ -15,4 +15,5 @@ public class HouseInfoDto {
     private String lat;
     private String lng;
     private String searchKeyword;
+    private String roadAddress;
 }

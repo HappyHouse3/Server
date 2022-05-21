@@ -1,6 +1,7 @@
 package com.ssafy.happyhouse.service;
 
 import com.ssafy.happyhouse.dto.house.*;
+import com.ssafy.happyhouse.entity.house.Dong;
 import com.ssafy.happyhouse.entity.house.HouseDeal;
 import com.ssafy.happyhouse.entity.house.HouseInfo;
 import com.ssafy.happyhouse.repository.HouseRepository;
@@ -17,19 +18,15 @@ public class HouseService {
     private final HouseRepository houseRepository;
 
     public List<SidoDto> getSido() throws Exception {
-        return houseRepository.getSido()
-                .stream().map(s -> new SidoDto(s))
-                .collect(Collectors.toList());
+        return houseRepository.getSido();
     }
 
-    public List<gugunDto> getGugunInSido(String sido) throws Exception {
-        return houseRepository.getGugunInSido(sido).stream()
-                .map(g -> new gugunDto(g))
-                .collect(Collectors.toList());
+    public List<GugunDto> getGugunInSido(String sidoCode) throws Exception {
+        return houseRepository.getGugunInSido(sidoCode);
     }
 
-    public List<DongDto> getDongInGugun(String gugun) throws Exception {
-        return houseRepository.getDongInGugun(gugun)
+    public List<DongDto> getDongInGugun(String gugunCode) throws Exception {
+        return houseRepository.getDongInGugun(gugunCode)
                 .stream().map(d -> new DongDto(d.getDongCode(), d.getDongName()))
                 .collect(Collectors.toList());
     }
@@ -43,7 +40,7 @@ public class HouseService {
                 .collect(Collectors.toList());
     }
 
-    public List<HouseDealDto> getHouseDeal(String aptcode) throws Exception {
+    public List<HouseDealDto> getHouseDeal(Long aptcode) throws Exception {
         List<HouseDeal> result = houseRepository.getHouseDeal(aptcode);
         return result.stream()
                 .map(hd -> new HouseDealDto(hd.getId(), hd.getHouseInfo().getAptName(), hd.getDealAmount().trim(), hd.getDealYear(), hd.getDealMonth(),

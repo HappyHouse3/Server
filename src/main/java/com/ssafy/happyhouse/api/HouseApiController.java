@@ -25,14 +25,14 @@ public class HouseApiController {
         return new ResponseEntity(houseService.getSido(), HttpStatus.OK);
     }
 
-    @GetMapping("/gugun/{sidoName}")
-    public ResponseEntity<List<gugunDto>> getGugun(@PathVariable String sidoName) throws Exception {
-        return new ResponseEntity(houseService.getGugunInSido(sidoName), HttpStatus.OK);
+    @GetMapping("/gugun/{sidoCode}")
+    public ResponseEntity<List<GugunDto>> getGugun(@PathVariable String sidoCode) throws Exception {
+        return new ResponseEntity(houseService.getGugunInSido(sidoCode), HttpStatus.OK);
     }
 
-    @GetMapping("/dong/{gugunName}")
-    public ResponseEntity<List<DongDto>> getDong(@PathVariable String gugunName) throws Exception {
-        return new ResponseEntity(houseService.getDongInGugun(gugunName), HttpStatus.OK);
+    @GetMapping("/dong/{gugunCode}")
+    public ResponseEntity<List<DongDto>> getDong(@PathVariable String gugunCode) throws Exception {
+        return new ResponseEntity(houseService.getDongInGugun(gugunCode), HttpStatus.OK);
     }
 
     @GetMapping("/apt/{dongCode}")
@@ -41,7 +41,7 @@ public class HouseApiController {
     }
 
     @GetMapping("/apt/{aptcode}/deal")
-    public ResponseEntity<List<HouseDealDto>> getAptDeal(@PathVariable String aptcode) throws Exception {
+    public ResponseEntity<List<HouseDealDto>> getAptDeal(@PathVariable Long aptcode) throws Exception {
         return new ResponseEntity(houseService.getHouseDeal(aptcode), HttpStatus.OK);
     }
 }

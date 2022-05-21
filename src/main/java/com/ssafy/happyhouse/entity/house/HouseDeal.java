@@ -30,6 +30,6 @@ public class HouseDeal {
     @Column(length=4)
     private String floor;
 
-    @Column(length = 1)
+    @Column(length = 1, name = "type")
     private String cancelDealType;
 }

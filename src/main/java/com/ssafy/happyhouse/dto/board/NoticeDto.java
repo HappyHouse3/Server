@@ -5,8 +5,5 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ReplyInputDto {
-    private String title;
-    private String content;
-    private Integer userNo;
+public class NoticeDto {
 }

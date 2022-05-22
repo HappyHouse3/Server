@@ -37,27 +37,34 @@ public class HouseRepository {
     }
 
     public List<GugunDto> getGugunInSido(String sidoCode) {
-        List<String> gugunCode = em.createQuery("select distinct substring(d.dongCode, 1, 4) from Dong d where substring(d.dongCode, 1, 2) = :sidoCode and d.gugunName is not null", String.class)
+        List<String> gugunCode = em.createQuery("select distinct substring(d.dongCode, 1, 5) from Dong d where substring(d.dongCode, 1, 2) = :sidoCode and d.dongName is not null", String.class)
                 .setParameter("sidoCode", sidoCode)
                 .getResultList();
 
         List<GugunDto> result = new ArrayList<>();
-        System.out.println("result = " + gugunCode);
 
         for (String gcode : gugunCode) {
-            String gugunName = em.createQuery("select distinct d.gugunName from Dong d where substring(d.dongCode, 1, 6) = :gcode and d.gugunName is not null", String.class)
-                    .setParameter("gcode", gcode + "00")
+            String gugunName = em.createQuery("select distinct d.gugunName from Dong d where substring(d.dongCode, 1, 5) = :gcode and d.dongName is not null", String.class)
+                    .setParameter("gcode", gcode)
                     .getSingleResult();
             result.add(new GugunDto(gcode, gugunName));
         }
+
+        System.out.println("result = " + result);
 
         return result;
     }
 
     public List<Dong> getDongInGugun(String gugunCode){
-         return em.createQuery("select d from Dong d where substring(d.dongCode, 1, 4) = :gugunCode and d.dongName is not null", Dong.class)
+         return em.createQuery("select d from Dong d where substring(d.dongCode, 1, 5) = :gugunCode and d.dongName is not null", Dong.class)
                 .setParameter("gugunCode", gugunCode)
                 .getResultList();
+    }
+
+    public Dong findDongbyDongCode(String dongCode) {
+        return em.createQuery("select d from Dong d where d.dongCode = :dongCode", Dong.class)
+                .setParameter("dongCode", dongCode)
+                .getSingleResult();
     }
 
     public List<HouseInfo> getAptInDong(String dongCode) {

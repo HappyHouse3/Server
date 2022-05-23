@@ -42,11 +42,11 @@ public class HouseService {
                 .collect(Collectors.toList());
     }
 
-//    public List<HouseDealDto> getHouseDeal(Long aptcode) throws Exception {
-//        List<HouseDeal> result = houseRepository.getHouseDeal(aptcode);
-//        return result.stream()
-//                .map(hd -> new HouseDealDto(hd.getId(), hd.getHouseInfo().getAptName(), hd.getDealAmount().trim(), hd.getDealYear(), hd.getDealMonth(),
-//                        hd.getDealDay(), String.valueOf(Math.round(Float.parseFloat(hd.getArea()))), hd.getFloor()))
-//                .collect(Collectors.toList());
-//    }
+    public List<HouseDealDto> getHouseDeal(Long aptcode) throws Exception {
+        List<HouseDeal> result = houseRepository.getHouseDeal(aptcode);
+        return result.stream()
+                .map(hd -> new HouseDealDto(hd.getId(), hd.getHouseInfo().getAptName(), hd.getDealAmount().trim(), hd.getDealYear(), hd.getDealMonth(),
+                        hd.getDealDay(), String.valueOf(Math.round(Float.parseFloat(hd.getArea()))), hd.getFloor()))
+                .collect(Collectors.toList());
+    }
 }

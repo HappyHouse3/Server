@@ -42,7 +42,7 @@ public class NoticeService {
                     .id(b.getId())
                     .title(b.getTitle())
                     .content(b.getContent())
-                    .nickName(b.getUser().getNickName())
+                    .userNickName(b.getUser().getNickName())
                     .regTime(b.getRegTime())
                     .build();
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class NoticeService {
                     noticeDto.setId(b.getId());
                     noticeDto.setTitle(b.getTitle());
                     noticeDto.setContent(b.getContent());
-                    noticeDto.setNickName(b.getUser().getNickName());
+                    noticeDto.setUserNickName(b.getUser().getNickName());
                     noticeDto.setRegTime(b.getRegTime());
                     return noticeDto;
                 }).collect(Collectors.toList());
@@ -84,7 +84,7 @@ public class NoticeService {
     }
 
     private User getUser(BoardDto boardDto) {
-        User user = userRepository.findByUserId(boardDto.getUserId()).orElseThrow(() -> new UsernameNotFoundException("해당 사용자가 존재하지 않습니다."));
+        User user = userRepository.findById(boardDto.getUserNo()).orElseThrow(() -> new UsernameNotFoundException("해당 사용자가 존재하지 않습니다."));
         return user;
     }
 }

@@ -40,8 +40,14 @@ public class HouseApiController {
         return new ResponseEntity(houseService.getAptInDong(dongCode), HttpStatus.OK);
     }
 
-//    @GetMapping("/apt/{aptcode}/deal")
-//    public ResponseEntity<List<HouseDealDto>> getAptDeal(@PathVariable Long aptcode) throws Exception {
-//        return new ResponseEntity(houseService.getHouseDeal(aptcode), HttpStatus.OK);
-//    }
+    @GetMapping("/apt/{aptcode}/deal")
+    public ResponseEntity<List<HouseDealDto>> getAptDeal(@PathVariable Long aptcode) throws Exception {
+        return new ResponseEntity(houseService.getHouseDeal(aptcode), HttpStatus.OK);
+    }
+
+    @PostMapping("/api/{aptcode}/review")
+    public ResponseEntity<String> saveAptReview(@PathVariable Long aptcode, @RequestBody ReviewDto reviewDto) throws Exception {
+        houseService.getHouseDeal(aptcode);
+        return new ResponseEntity("Success", HttpStatus.OK);
+    }
 }

@@ -69,4 +69,12 @@ public class HouseInfo {
 
     @Column(length = 30)
     private String lng;
+
+    @OneToMany(mappedBy = "houseInfo", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Review> reviews = new ArrayList<>();
+
+    public void addReview(Review review) {
+        reviews.add(review);
+        review.setHouseInfo(this);
+    }
 }

@@ -27,7 +27,12 @@ public class BoardDto {
     private String content;
 
     @NotNull
-    private String userId;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long userNo;
+
+    @NotNull
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String userNickName;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime regTime;

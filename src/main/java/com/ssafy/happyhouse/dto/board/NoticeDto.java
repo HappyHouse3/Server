@@ -15,10 +15,6 @@ import java.time.LocalDateTime;
 @Builder
 public class NoticeDto {
 
-    @NotNull
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String token;
-
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
 
@@ -29,7 +25,12 @@ public class NoticeDto {
     private String content;
 
     @NotNull
-    private String nickName;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long userNo;
+
+    @NotNull
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String userNickName;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime regTime;

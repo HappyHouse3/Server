@@ -38,7 +38,7 @@ public class HouseService {
                         hi.getDong().getDongCode(), hi.getDong().getDongName(),
                         hi.getBuildYear(), hi.getJibun(), hi.getLat(), hi.getLng(),
                         hi.getDong().getGugunName() + " " + hi.getDongName() + " " + hi.getAptName() + "아파트",
-                        hi.getRoadName() + " " + String.valueOf(Long.parseLong(hi.getRoadNameBonbun()))))
+                        hi.getRoadName() + " " + String.valueOf(Long.parseLong(hi.getRoadNameBonbun() == null ? "0" : hi.getRoadNameBonbun()))))
                 .collect(Collectors.toList());
     }
 

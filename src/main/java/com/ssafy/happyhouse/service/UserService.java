@@ -8,6 +8,7 @@ import com.ssafy.happyhouse.dto.user.UserUpdateDto;
 import com.ssafy.happyhouse.entity.User;
 import com.ssafy.happyhouse.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -67,7 +69,7 @@ public class UserService {
     @Transactional
     public TokenDto updateUser(Long id, UserUpdateDto updateDto) {
         User user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("사용자 정복가 존재하지 않습니다."));
-        user.setPassword(updateDto.getPassword());
+        user.setPassword(passwordEncoder.encode(updateDto.getPassword()));
         user.setEmail(updateDto.getEmail());
         user.setNickName(updateDto.getNickName());
         user.setSidoName(updateDto.getSidoName());
@@ -85,6 +87,7 @@ public class UserService {
 
     @Transactional
     public int deleteUser(Long id) {
+        log.info("회원탈퇴 서비스 요청");
         User user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("사용자 정복가 존재하지 않습니다."));
         userRepository.delete(user);
         return 1;

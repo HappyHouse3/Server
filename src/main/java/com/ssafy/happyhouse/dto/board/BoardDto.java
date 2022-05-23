@@ -29,11 +29,8 @@ public class BoardDto {
     @NotNull
     private String userId;
 
-    @NotNull String userDetail;
-
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime regTime;
-
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     List<ReplyDto> replyList;

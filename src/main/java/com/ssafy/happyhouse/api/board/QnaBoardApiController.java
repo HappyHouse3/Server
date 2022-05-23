@@ -11,7 +11,6 @@
 //import javax.servlet.http.HttpSession;
 //
 //
-//@CrossOrigin("*")
 //@RequiredArgsConstructor
 //@RequestMapping("/api/qna")
 //@RestController

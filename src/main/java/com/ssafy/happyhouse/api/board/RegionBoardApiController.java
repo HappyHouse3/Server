@@ -10,7 +10,6 @@
 //
 //import javax.servlet.http.HttpSession;
 //
-//@CrossOrigin("*")
 //@RequiredArgsConstructor
 //@RequestMapping("/api/regionboard/{sido}")
 //@RestController

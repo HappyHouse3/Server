@@ -55,10 +55,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
         String token = JWT.create()
                 .withSubject("cosToken")
-                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 15)))
-                .withClaim("id", principalDetails.getUser().getId())
+                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24)))
+                .withClaim("userNo", principalDetails.getUser().getId())
                 .withClaim("userId", principalDetails.getUser().getUserName())
-                .withClaim("sidoCode", principalDetails.getUser().getSidoName())
+                .withClaim("nickName", principalDetails.getUser().getNickName())
+                .withClaim("sidoName", principalDetails.getUser().getSidoName())
                 .sign(Algorithm.HMAC512("cos"));
 
         response.setContentType("application/json; charset=utf-8");

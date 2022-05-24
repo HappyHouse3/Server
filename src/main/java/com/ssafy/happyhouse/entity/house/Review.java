@@ -26,5 +26,5 @@ public class Review {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private int score;
+    private float score;
 }

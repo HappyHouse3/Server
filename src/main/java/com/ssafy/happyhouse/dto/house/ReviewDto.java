@@ -25,5 +25,5 @@ public class ReviewDto {
     private String content;
 
     @NotNull
-    private int score;
+    private float score;
 }

@@ -45,12 +45,12 @@ public class HouseApiController {
         return new ResponseEntity(houseService.getHouseDeal(aptCode), HttpStatus.OK);
     }
 
-    @GetMapping("/api/{aptCode}/review")
+    @GetMapping("/apt/{aptCode}/review")
     public ResponseEntity<ReviewDto> getHouseReview(@PathVariable Long aptCode) throws Exception {
         return new ResponseEntity(houseService.getHouseReview(aptCode), HttpStatus.OK);
     }
 
-    @PostMapping("/api/{aptCode}/review")
+    @PostMapping("/apt/{aptCode}/review")
     public ResponseEntity<String> saveAptReview(@PathVariable Long aptCode, @RequestBody ReviewDto reviewDto) throws Exception {
         try {
             houseService.saveHouseReview(aptCode, reviewDto);
@@ -60,7 +60,7 @@ public class HouseApiController {
         return new ResponseEntity("Success", HttpStatus.OK);
     }
 
-    @PutMapping("/api/{aptCode}/review/{reviewId}")
+    @PutMapping("/apt/{aptCode}/review/{reviewId}")
     public ResponseEntity<String> updateAptReview(@PathVariable Long aptCode, @PathVariable Integer reviewId, @RequestBody ReviewUpdateDto reviewUpdateDto) throws Exception {
         try {
             houseService.updateReview(reviewId, reviewUpdateDto);
@@ -70,7 +70,7 @@ public class HouseApiController {
         return new ResponseEntity("Success", HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/{aptCode}/review/{reviewId}")
+    @DeleteMapping("/apt/{aptCode}/review/{reviewId}")
     public ResponseEntity<String> deleteAptReview(@PathVariable Long aptCode, @PathVariable Integer reviewId) throws Exception {
         try {
             houseService.DeleteReview(reviewId);

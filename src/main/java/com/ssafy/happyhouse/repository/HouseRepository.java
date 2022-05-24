@@ -80,7 +80,7 @@ public class HouseRepository {
     }
 
     public List<Review> getHouseReview(Long aptCode) {
-        return em.createQuery("select rv from Review rv join fetch rv.user where rv.houseInfo.aptCode = :aptCode")
+        return em.createQuery("select rv from Review rv join fetch rv.user where rv.houseInfo.aptCode = :aptCode order by rv.id desc")
                 .setParameter("aptCode", aptCode)
                 .getResultList();
     }

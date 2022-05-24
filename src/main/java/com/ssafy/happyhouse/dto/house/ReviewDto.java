@@ -8,6 +8,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ReviewDto {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Integer reviewId;
+
     @NotNull
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long userNo;

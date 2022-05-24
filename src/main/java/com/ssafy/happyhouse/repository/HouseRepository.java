@@ -5,6 +5,7 @@ import com.ssafy.happyhouse.dto.house.SidoDto;
 import com.ssafy.happyhouse.entity.house.Dong;
 import com.ssafy.happyhouse.entity.house.HouseDeal;
 import com.ssafy.happyhouse.entity.house.HouseInfo;
+import com.ssafy.happyhouse.entity.house.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -76,5 +77,29 @@ public class HouseRepository {
         return em.createQuery("select hd from HouseDeal hd join fetch hd.houseInfo hi where hi.aptCode = :aptcode")
                 .setParameter("aptcode", aptcode)
                 .getResultList();
+    }
+
+    public List<Review> getHouseReview(Long aptCode) {
+        return em.createQuery("select rv from Review rv join fetch rv.user where rv.houseInfo.aptCode = :aptCode")
+                .setParameter("aptCode", aptCode)
+                .getResultList();
+    }
+
+    public Review saveReview(Review review) {
+        em.persist(review);
+        System.out.println("review = " + review);
+        return review;
+    }
+
+    public Review findReviewById(Integer id) {
+        return em.find(Review.class, id);
+    }
+
+    public HouseInfo getApt(Long aptCode) {
+        return em.find(HouseInfo.class, aptCode);
+    }
+
+    public void deleteReview(Review review) {
+        em.remove(review);
     }
 }

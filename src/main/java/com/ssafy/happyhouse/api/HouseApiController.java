@@ -40,14 +40,43 @@ public class HouseApiController {
         return new ResponseEntity(houseService.getAptInDong(dongCode), HttpStatus.OK);
     }
 
-    @GetMapping("/apt/{aptcode}/deal")
-    public ResponseEntity<List<HouseDealDto>> getAptDeal(@PathVariable Long aptcode) throws Exception {
-        return new ResponseEntity(houseService.getHouseDeal(aptcode), HttpStatus.OK);
+    @GetMapping("/apt/{aptCode}/deal")
+    public ResponseEntity<List<HouseDealDto>> getAptDeal(@PathVariable Long aptCode) throws Exception {
+        return new ResponseEntity(houseService.getHouseDeal(aptCode), HttpStatus.OK);
     }
 
-    @PostMapping("/api/{aptcode}/review")
-    public ResponseEntity<String> saveAptReview(@PathVariable Long aptcode, @RequestBody ReviewDto reviewDto) throws Exception {
-        houseService.getHouseDeal(aptcode);
+    @GetMapping("/api/{aptCode}/review")
+    public ResponseEntity<ReviewDto> getHouseReview(@PathVariable Long aptCode) throws Exception {
+        return new ResponseEntity(houseService.getHouseReview(aptCode), HttpStatus.OK);
+    }
+
+    @PostMapping("/api/{aptCode}/review")
+    public ResponseEntity<String> saveAptReview(@PathVariable Long aptCode, @RequestBody ReviewDto reviewDto) throws Exception {
+        try {
+            houseService.saveHouseReview(aptCode, reviewDto);
+        } catch (Exception e) {
+            return new ResponseEntity("Fail", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity("Success", HttpStatus.OK);
+    }
+
+    @PutMapping("/api/{aptCode}/review/{reviewId}")
+    public ResponseEntity<String> updateAptReview(@PathVariable Long aptCode, @PathVariable Integer reviewId, @RequestBody ReviewUpdateDto reviewUpdateDto) throws Exception {
+        try {
+            houseService.updateReview(reviewId, reviewUpdateDto);
+        } catch (Exception e) {
+            return new ResponseEntity("Fail", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity("Success", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/api/{aptCode}/review/{reviewId}")
+    public ResponseEntity<String> deleteAptReview(@PathVariable Long aptCode, @PathVariable Integer reviewId) throws Exception {
+        try {
+            houseService.DeleteReview(reviewId);
+        } catch (Exception e) {
+            return new ResponseEntity("Fail", HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity("Success", HttpStatus.OK);
     }
 }

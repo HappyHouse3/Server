@@ -42,6 +42,7 @@ public class NoticeService {
                     .id(b.getId())
                     .title(b.getTitle())
                     .content(b.getContent())
+                    .userNo(b.getUser().getId())
                     .userNickName(b.getUser().getNickName())
                     .regTime(b.getRegTime())
                     .build();

@@ -25,7 +25,6 @@ public class NoticeDto {
     private String content;
 
     @NotNull
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long userNo;
 
     @NotNull

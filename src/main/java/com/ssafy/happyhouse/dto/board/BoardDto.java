@@ -13,10 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class BoardDto {
 
-    @NotNull
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String token;
-
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
 

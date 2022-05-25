@@ -27,7 +27,7 @@ public class UserApiController {
 
     @GetMapping("/signup")
     public ResponseEntity<List<SidoDto>> joinGetRequestDto() {
-        return new ResponseEntity<>(houseRepository.getSido(), HttpStatus.OK);
+        return new ResponseEntity<>(houseRepository.findSidoList(), HttpStatus.OK);
     }
 
     @PostMapping("/signup")

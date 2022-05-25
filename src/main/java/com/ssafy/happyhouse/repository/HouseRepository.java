@@ -25,6 +25,11 @@ public class HouseRepository {
                 .getResultList();
     }
 
+    public List<SidoDto> findSidoList() {
+        return em.createQuery("select new com.ssafy.happyhouse.dto.house.SidoDto(s.sidoCode, s.sidoName) from Sido s ", SidoDto.class)
+                .getResultList();
+    }
+
     public Sido findSidoById(String sidoCode) {
         return em.find(Sido.class, sidoCode);
     }

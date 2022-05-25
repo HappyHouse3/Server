@@ -1,6 +1,7 @@
 package com.ssafy.happyhouse.service.board;
 
 import com.ssafy.happyhouse.dto.board.BoardDto;
+import com.ssafy.happyhouse.dto.board.BoardInputDto;
 import com.ssafy.happyhouse.dto.board.BoardUpdateDto;
 import com.ssafy.happyhouse.dto.board.NoticeDto;
 import com.ssafy.happyhouse.entity.User;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +27,7 @@ public class NoticeService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Integer saveBoard(BoardDto boardDto) {
+    public Integer saveBoard(BoardInputDto boardDto) {
         User user = getUser(boardDto);
         Board board = new Notice();
         board.setTitle(boardDto.getTitle());
@@ -45,7 +47,7 @@ public class NoticeService {
                     .content(b.getContent())
                     .userNo(b.getUser().getId())
                     .userNickName(b.getUser().getNickName())
-                    .regTime(b.getRegTime())
+                    .regTime(b.getRegTime().format(DateTimeFormatter.ofPattern("M월 dd일 HH:mm")))
                     .build();
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,7 +64,7 @@ public class NoticeService {
                     noticeDto.setTitle(b.getTitle());
                     noticeDto.setContent(b.getContent());
                     noticeDto.setUserNickName(b.getUser().getNickName());
-                    noticeDto.setRegTime(b.getRegTime());
+                    noticeDto.setRegTime(b.getRegTime().format(DateTimeFormatter.ofPattern("M월 dd일 HH:mm")));
                     return noticeDto;
                 }).collect(Collectors.toList());
     }
@@ -85,7 +87,7 @@ public class NoticeService {
         boardRepository.delete(board);
     }
 
-    private User getUser(BoardDto boardDto) {
+    private User getUser(BoardInputDto boardDto) {
         User user = userRepository.findById(boardDto.getUserNo()).orElseThrow(() -> new UsernameNotFoundException("해당 사용자가 존재하지 않습니다."));
         return user;
     }

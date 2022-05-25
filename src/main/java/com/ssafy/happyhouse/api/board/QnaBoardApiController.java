@@ -28,7 +28,7 @@ public class QnaBoardApiController {
     }
 
     @PostMapping
-    public ResponseEntity<Integer> save(@RequestBody BoardDto boardDto, HttpSession session) {
+    public ResponseEntity<Integer> save(@RequestBody BoardInputDto boardDto, HttpSession session) {
         return new ResponseEntity<>(boardService.saveBoard(boardDto), HttpStatus.OK);
     }
 

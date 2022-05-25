@@ -67,6 +67,7 @@ public class UserService {
                 .nickName(user.getNickName())
                 .email(user.getEmail())
                 .sidoName(user.getNickName())
+                .sidoCode(user.getSido().getSidoCode())
                 .build();
     }
 

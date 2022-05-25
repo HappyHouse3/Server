@@ -27,5 +27,5 @@ public class ReplyDto {
     private String userNickName;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDateTime regTime;
+    private String regTime;
 }

@@ -1,6 +1,7 @@
 package com.ssafy.happyhouse.api.board;
 
 import com.ssafy.happyhouse.dto.board.BoardDto;
+import com.ssafy.happyhouse.dto.board.BoardInputDto;
 import com.ssafy.happyhouse.dto.board.BoardUpdateDto;
 import com.ssafy.happyhouse.service.board.NoticeService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class NoticeApiController {
     }
 
     @PostMapping
-    public ResponseEntity<Integer> save(@RequestBody BoardDto boardDto, HttpSession session) {
+    public ResponseEntity<Integer> save(@RequestBody BoardInputDto boardDto, HttpSession session) {
         return new ResponseEntity<>(boardService.saveBoard(boardDto), HttpStatus.OK);
     }
 

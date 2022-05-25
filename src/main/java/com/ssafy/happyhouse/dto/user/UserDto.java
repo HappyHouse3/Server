@@ -37,7 +37,6 @@ public class UserDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<String> roles;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String sidoCode;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

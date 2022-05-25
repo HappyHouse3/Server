@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,7 @@ public class RegionBoardService {
                         replyDto.setId(r.getId());
                         replyDto.setContent(r.getContent());
                         replyDto.setUserNickName(r.getUser().getNickName());
-                        replyDto.setRegTime(r.getRegTime());
+                        replyDto.setRegTime(r.getRegTime().format(DateTimeFormatter.ofPattern("M월 dd일 HH:mm")));
                         return replyDto;
                     }).collect(Collectors.toList());
 
@@ -47,7 +48,7 @@ public class RegionBoardService {
                             .title(b.getTitle())
                             .content(b.getContent())
                             .userNickName(b.getUser().getNickName())
-                            .regTime(b.getRegTime())
+                            .regTime(b.getRegTime().format(DateTimeFormatter.ofPattern("M월 dd일 HH:mm")))
                             .replyList(replies)
                             .build();
                 }).collect(Collectors.toList());
@@ -62,7 +63,7 @@ public class RegionBoardService {
                 replyDto.setId(r.getId());
                 replyDto.setContent(r.getContent());
                 replyDto.setUserNickName(r.getUser().getNickName());
-                replyDto.setRegTime(r.getRegTime());
+                replyDto.setRegTime(r.getRegTime().format(DateTimeFormatter.ofPattern("M월 dd일 HH:mm")));
                 return replyDto;
             }).collect(Collectors.toList());
 
@@ -72,7 +73,7 @@ public class RegionBoardService {
                     .content(b.getContent())
                     .userNo(b.getUser().getId())
                     .userNickName(b.getUser().getNickName())
-                    .regTime(b.getRegTime())
+                    .regTime(b.getRegTime().format(DateTimeFormatter.ofPattern("M월 dd일 HH:mm")))
                     .replyList(replyDtos)
                     .build();
 

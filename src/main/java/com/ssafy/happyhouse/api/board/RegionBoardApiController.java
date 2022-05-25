@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/regionboard/{sidoCode}")
+@RequestMapping("/api/{sidoCode}/regionboard")
 @RestController
 public class RegionBoardApiController {
 
@@ -25,9 +25,9 @@ public class RegionBoardApiController {
         return new ResponseEntity(boardService.findAll(sidoCode), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<BoardDto> detail(@PathVariable Integer id) {
-        return new ResponseEntity<>(boardService.findOne(id), HttpStatus.OK);
+    @GetMapping("/{boardId}")
+    public ResponseEntity<BoardDto> detail(@PathVariable Integer boardId) {
+        return new ResponseEntity<>(boardService.findOne(boardId), HttpStatus.OK);
     }
 
 
@@ -54,9 +54,9 @@ public class RegionBoardApiController {
         return new ResponseEntity<>(1, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Integer> delete(@PathVariable Integer id) {
-        boardService.delete(id);
+    @DeleteMapping("/{boardId}")
+    public ResponseEntity<Integer> delete(@PathVariable Integer boardId) {
+        boardService.delete(boardId);
         return new ResponseEntity<>(1, HttpStatus.OK);
     }
 

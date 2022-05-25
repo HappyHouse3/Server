@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class NoticeService {
 
     private final BoardRepository boardRepository;

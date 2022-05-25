@@ -1,7 +1,7 @@
 package com.ssafy.happyhouse.api.board;
 
 import com.ssafy.happyhouse.dto.board.*;
-import com.ssafy.happyhouse.service.board.QnaService;
+import com.ssafy.happyhouse.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 @RestController
 public class QnaBoardApiController {
 
-    private final QnaService boardService;
+    private final BoardService boardService;
 
     @GetMapping
     public ResponseEntity<?> list() {
@@ -26,7 +26,6 @@ public class QnaBoardApiController {
     public ResponseEntity<?> detail(@PathVariable Integer id) {
         return new ResponseEntity<>(boardService.findOne(id), HttpStatus.OK);
     }
-
 
     @PostMapping
     public ResponseEntity<Integer> save(@RequestBody BoardDto boardDto, HttpSession session) {

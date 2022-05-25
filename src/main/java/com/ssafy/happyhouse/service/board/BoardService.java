@@ -5,6 +5,7 @@ import com.ssafy.happyhouse.dto.house.ReviewDto;
 import com.ssafy.happyhouse.entity.User;
 import com.ssafy.happyhouse.entity.board.Board;
 import com.ssafy.happyhouse.entity.board.QnaBoard;
+import com.ssafy.happyhouse.entity.board.RegionBoard;
 import com.ssafy.happyhouse.entity.board.Reply;
 import com.ssafy.happyhouse.repository.BoardRepository;
 import com.ssafy.happyhouse.repository.ReplyRespository;
@@ -19,7 +20,8 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class QnaService {
+@Transactional(readOnly = true)
+public class BoardService {
 
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
@@ -27,7 +29,7 @@ public class QnaService {
 
     @Transactional
     public Integer saveBoard(BoardDto boardDto) {
-        User user = getUser(boardDto);
+        User user = getUser(boardDto.getUserNo());
         QnaBoard board = new QnaBoard();
 
         board.setTitle(boardDto.getTitle());
@@ -92,11 +94,11 @@ public class QnaService {
     }
 
     @Transactional
-    public Integer updateBoard(Integer id, BoardUpdateDto updateBoardDto) {
+    public Integer updateBoard(Integer id, BoardUpdateDto boardUpdateDto) {
         try {
             Board board = boardRepository.findById(id);
-            board.setTitle(updateBoardDto.getTitle());
-            board.setContent(updateBoardDto.getContent());
+            board.setTitle(boardUpdateDto.getTitle());
+            board.setContent(boardUpdateDto.getContent());
             return board.getId();
         } catch (Exception e) {
             throw new IllegalArgumentException("해당 ID가 존재하지 않습니다.");
@@ -110,11 +112,11 @@ public class QnaService {
     }
 
     @Transactional
-    public void saveReply(Integer boardId, ReplyDto replyInputDto) {
-        User user = userRepository.findById(replyInputDto.getUserNo()).orElseThrow(() -> new RuntimeException("사용자가 없습니다."));
+    public void saveReply(Integer boardId, ReplyDto replyDto) {
+        User user = userRepository.findById(replyDto.getUserNo()).orElseThrow(() -> new RuntimeException("사용자가 없습니다."));
 
         Reply reply = new Reply();
-        reply.setContent(replyInputDto.getContent());
+        reply.setContent(replyDto.getContent());
         reply.setUser(user);
 
         Board board = boardRepository.findById(boardId);
@@ -135,8 +137,8 @@ public class QnaService {
         replyRespository.delete(reply);
     }
 
-    private User getUser(BoardDto boardDto) {
-        User user = userRepository.findById(boardDto.getUserNo()).orElseThrow(() -> new UsernameNotFoundException("해당 사용자가 존재하지 않습니다."));
+    private User getUser(Long userNo) {
+        User user = userRepository.findById(userNo).orElseThrow(() -> new UsernameNotFoundException("해당 사용자가 존재하지 않습니다."));
         return user;
     }
 }

@@ -46,6 +46,7 @@ public class UserApiController {
 
     @PutMapping("/user/{userId}")
     public ResponseEntity<TokenDto> updateUser(@PathVariable Long userId, @RequestBody UserUpdateDto updateDto) {
+        log.info("Input : {}", updateDto);
         return new ResponseEntity<>(userService.updateUser(userId, updateDto), HttpStatus.OK);
     }
 

@@ -30,7 +30,7 @@ public class RegionBoardService {
     private final ReplyRespository replyRespository;
     private final UserRepository userRepository;
 
-    public List<BoardDto> findAll(String sidoCode) {
+    public List<RegionBoardDto> findAll(String sidoCode) {
         List<RegionBoard> result = boardRepository.findAllRegionBoard(sidoCode);
         return result.stream()
                 .map(b -> {
@@ -43,20 +43,22 @@ public class RegionBoardService {
                         return replyDto;
                     }).collect(Collectors.toList());
 
-                    return BoardDto.builder()
-                            .id(b.getId())
-                            .title(b.getTitle())
-                            .content(b.getContent())
-                            .userNickName(b.getUser().getNickName())
-                            .regTime(b.getRegTime().format(DateTimeFormatter.ofPattern("M월 dd일 HH:mm")))
-                            .replyList(replies)
-                            .build();
+                    RegionBoardDto boardDto = new RegionBoardDto();
+                    boardDto.setId(b.getId());
+                    boardDto.setTitle(b.getTitle());
+                    boardDto.setContent(b.getContent());
+                    boardDto.setUserNickName(b.getUser().getNickName());
+                    boardDto.setRegTime(b.getRegTime().format(DateTimeFormatter.ofPattern("M월 dd일 HH:mm")));
+                    boardDto.setReplyList(replies);
+                    boardDto.setImg(b.getImg());
+
+                    return boardDto;
                 }).collect(Collectors.toList());
     }
 
-    public BoardDto findOne(Integer id) {
+    public RegionBoardDto findOne(Integer id) {
         try {
-            Board b = boardRepository.findById(id);
+            RegionBoard b = (RegionBoard) boardRepository.findById(id);
             List<Reply> result = b.getReplyList();
             List<ReplyDto> replyDtos = result.stream().map(r -> {
                 ReplyDto replyDto = new ReplyDto();
@@ -67,15 +69,15 @@ public class RegionBoardService {
                 return replyDto;
             }).collect(Collectors.toList());
 
-            return BoardDto.builder()
-                    .id(b.getId())
-                    .title(b.getTitle())
-                    .content(b.getContent())
-                    .userNo(b.getUser().getId())
-                    .userNickName(b.getUser().getNickName())
-                    .regTime(b.getRegTime().format(DateTimeFormatter.ofPattern("M월 dd일 HH:mm")))
-                    .replyList(replyDtos)
-                    .build();
+            RegionBoardDto boardDto = new RegionBoardDto();
+            boardDto.setId(b.getId());
+            boardDto.setTitle(b.getTitle());
+            boardDto.setContent(b.getContent());
+            boardDto.setUserNickName(b.getUser().getNickName());
+            boardDto.setRegTime(b.getRegTime().format(DateTimeFormatter.ofPattern("M월 dd일 HH:mm")));
+            boardDto.setReplyList(replyDtos);
+            boardDto.setImg(b.getImg());
+            return boardDto;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,6 +95,7 @@ public class RegionBoardService {
         board.setContent(boardDto.getContent());
         board.setUser(user);
         board.setSido(sido);
+        board.setImg(boardDto.getImg());
 
         boardRepository.save(board);
         return board.getId();

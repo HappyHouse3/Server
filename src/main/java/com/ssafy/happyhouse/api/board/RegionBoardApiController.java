@@ -21,12 +21,12 @@ public class RegionBoardApiController {
     private final RegionBoardService boardService;
 
     @GetMapping
-    public ResponseEntity<List<BoardDto>> list(@PathVariable String sidoCode) {
+    public ResponseEntity<List<RegionBoardDto>> list(@PathVariable String sidoCode) {
         return new ResponseEntity(boardService.findAll(sidoCode), HttpStatus.OK);
     }
 
     @GetMapping("/{boardId}")
-    public ResponseEntity<BoardDto> detail(@PathVariable Integer boardId) {
+    public ResponseEntity<RegionBoardDto> detail(@PathVariable Integer boardId) {
         return new ResponseEntity<>(boardService.findOne(boardId), HttpStatus.OK);
     }
 

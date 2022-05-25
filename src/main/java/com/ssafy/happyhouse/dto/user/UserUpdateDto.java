@@ -21,5 +21,5 @@ public class UserUpdateDto {
     @NotNull
     private String email;
 
-    private String sidoName;
+    private String sidoCode;
 }

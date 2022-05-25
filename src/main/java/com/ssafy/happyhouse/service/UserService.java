@@ -6,6 +6,8 @@ import com.ssafy.happyhouse.dto.user.TokenDto;
 import com.ssafy.happyhouse.dto.user.UserDto;
 import com.ssafy.happyhouse.dto.user.UserUpdateDto;
 import com.ssafy.happyhouse.entity.User;
+import com.ssafy.happyhouse.entity.board.Sido;
+import com.ssafy.happyhouse.repository.HouseRepository;
 import com.ssafy.happyhouse.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final HouseRepository houseRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
@@ -32,13 +35,14 @@ public class UserService {
             throw new RuntimeException("이미 가입되어 있는 유저입니다.");
         }
 
+        Sido sido = houseRepository.findSidoById(userDto.getSidoCode());
         User user = User.builder()
                 .userName(userDto.getUserId())
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .nickName(userDto.getNickName())
                 .email(userDto.getEmail())
-                .sidoName(userDto.getSidoName())
                 .build();
+        user.setSido(sido);
 
         User saveUser = userRepository.save(user);
 
@@ -49,7 +53,7 @@ public class UserService {
         userReturnDto.setNickName(saveUser.getNickName());
         userReturnDto.setRoles(saveUser.getRoleList());
         userReturnDto.setEmail(saveUser.getEmail());
-        userReturnDto.setSidoName(saveUser.getSidoName());
+        userReturnDto.setSidoName(saveUser.getSido().getSidoName());
 
         return userReturnDto;
     }
@@ -62,17 +66,19 @@ public class UserService {
                 .password(user.getPassword())
                 .nickName(user.getNickName())
                 .email(user.getEmail())
-                .sidoName(user.getSidoName())
+                .sidoName(user.getNickName())
                 .build();
     }
 
     @Transactional
     public TokenDto updateUser(Long id, UserUpdateDto updateDto) {
         User user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("사용자 정복가 존재하지 않습니다."));
+
+        houseRepository.findSidoById(updateDto.getSidoCode());
         user.setPassword(passwordEncoder.encode(updateDto.getPassword()));
         user.setEmail(updateDto.getEmail());
         user.setNickName(updateDto.getNickName());
-        user.setSidoName(updateDto.getSidoName());
+        user.setSido(houseRepository.findSidoById(updateDto.getSidoCode()));
 
         String token = JWT.create()
                 .withSubject("cosToken")
@@ -80,7 +86,9 @@ public class UserService {
                 .withClaim("userNo", user.getId())
                 .withClaim("userId", user.getUserName())
                 .withClaim("nickName", user.getNickName())
-                .withClaim("sidoName", user.getSidoName())
+                .withClaim("sidoName", user.getSido().getSidoName())
+                .withClaim("sidoCode", user.getSido().getSidoCode())
+                .withClaim("roleType", user.getRoleList())
                 .sign(Algorithm.HMAC512("cos"));
         return new TokenDto(token);
     }

@@ -25,6 +25,10 @@ public class HouseRepository {
                 .getResultList();
     }
 
+    public Sido findSidoById(String sidoCode) {
+        return em.find(Sido.class, sidoCode);
+    }
+
     public List<GugunDto> getGugunInSido(String sidoCode) {
         List<String> gugunCode = em.createQuery("select distinct substring(d.dongCode, 1, 5) from Dong d where substring(d.dongCode, 1, 2) = :sidoCode and d.dongName is not null", String.class)
                 .setParameter("sidoCode", sidoCode)

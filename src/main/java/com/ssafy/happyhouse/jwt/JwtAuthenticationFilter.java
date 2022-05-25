@@ -59,7 +59,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withClaim("userNo", principalDetails.getUser().getId())
                 .withClaim("userId", principalDetails.getUser().getUserName())
                 .withClaim("nickName", principalDetails.getUser().getNickName())
-                .withClaim("sidoName", principalDetails.getUser().getSidoName())
+                .withClaim("sidoName", principalDetails.getUser().getSido().getSidoName())
+                .withClaim("sidoCode", principalDetails.getUser().getSido().getSidoCode())
                 .withClaim("roleType", principalDetails.getUser().getRoleList())
                 .sign(Algorithm.HMAC512("cos"));
 

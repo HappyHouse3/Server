@@ -2,6 +2,7 @@ package com.ssafy.happyhouse.repository;
 
 import com.ssafy.happyhouse.dto.house.GugunDto;
 import com.ssafy.happyhouse.dto.house.SidoDto;
+import com.ssafy.happyhouse.entity.board.Sido;
 import com.ssafy.happyhouse.entity.house.Dong;
 import com.ssafy.happyhouse.entity.house.HouseDeal;
 import com.ssafy.happyhouse.entity.house.HouseInfo;
@@ -20,20 +21,8 @@ public class HouseRepository {
     private final EntityManager em;
 
     public List<SidoDto> getSido() {
-        List<String> sidoNameList = em.createQuery("select distinct d.sidoName from Dong d ", String.class)
+        return em.createQuery("select new com.ssafy.happyhouse.dto.house.SidoDto(substring(s.sidoCode, 1, 2), s.sidoName) from Sido s ", SidoDto.class)
                 .getResultList();
-
-        System.out.println("sidoNameList = " + sidoNameList);
-
-        List<SidoDto> result = new ArrayList<>();
-
-        for (String sidoName : sidoNameList) {
-            String dongcode = em.createQuery("select distinct substring(d.dongCode, 1, 2) from Dong d where d.sidoName = :sidoName", String.class)
-                    .setParameter("sidoName", sidoName)
-                    .getSingleResult();
-            result.add(new SidoDto(dongcode.substring(0, 2), sidoName));
-        }
-        return result;
     }
 
     public List<GugunDto> getGugunInSido(String sidoCode) {

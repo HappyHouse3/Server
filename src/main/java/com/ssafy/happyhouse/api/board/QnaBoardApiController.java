@@ -28,20 +28,20 @@ public class QnaBoardApiController {
     }
 
     @PostMapping
-    public ResponseEntity<Integer> save(@RequestBody BoardInputDto boardDto, HttpSession session) {
+    public ResponseEntity<Integer> save(@RequestBody BoardInputDto boardDto) {
         return new ResponseEntity<>(boardService.saveBoard(boardDto), HttpStatus.OK);
     }
 
-    @PostMapping("/{id}/reply")
-    public ResponseEntity<Integer> replySave(@PathVariable Integer id, @RequestBody ReplyDto replyInputDto) {
-        boardService.saveReply(id, replyInputDto);
+    @PostMapping("/{boardId}/reply")
+    public ResponseEntity<Integer> replySave(@PathVariable Integer boardId, @RequestBody ReplyDto replyInputDto) {
+        boardService.saveReply(boardId, replyInputDto);
         return new ResponseEntity<>(1, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Integer> update(@PathVariable Integer id, @RequestBody BoardUpdateDto updateDto) {
-        boardService.updateBoard(id, updateDto);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+    @PutMapping("/{boardId}")
+    public ResponseEntity<Integer> update(@PathVariable Integer boardId, @RequestBody BoardUpdateDto updateDto) {
+        boardService.updateBoard(boardId, updateDto);
+        return new ResponseEntity<>(boardId, HttpStatus.OK);
     }
 
     @PutMapping("/{boardId}/reply/{replyId}")
@@ -50,9 +50,9 @@ public class QnaBoardApiController {
         return new ResponseEntity<>(1, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Integer> delete(@PathVariable Integer id) {
-        boardService.delete(id);
+    @DeleteMapping("/{boardId}")
+    public ResponseEntity<Integer> delete(@PathVariable Integer boardId) {
+        boardService.delete(boardId);
         return new ResponseEntity<>(1, HttpStatus.OK);
     }
 

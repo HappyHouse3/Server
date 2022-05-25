@@ -72,7 +72,7 @@ public class HouseRepository {
     }
 
     public List<HouseDeal> getHouseDeal(Long aptcode) {
-        return em.createQuery("select hd from HouseDeal hd join fetch hd.houseInfo hi where hi.aptCode = :aptcode")
+        return em.createQuery("select hd from HouseDeal hd join fetch hd.houseInfo hi where hi.aptCode = :aptcode order by hd.dealYear desc, hd.dealMonth desc, hd.dealDay DESC")
                 .setParameter("aptcode", aptcode)
                 .getResultList();
     }

@@ -2,13 +2,20 @@ package com.ssafy.happyhouse.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.ssafy.happyhouse.dto.house.HouseDealDto;
+import com.ssafy.happyhouse.dto.house.HouseInfoDto;
 import com.ssafy.happyhouse.dto.user.TokenDto;
 import com.ssafy.happyhouse.dto.user.UserDto;
 import com.ssafy.happyhouse.dto.user.UserUpdateDto;
+import com.ssafy.happyhouse.dto.user.WatchListDto;
 import com.ssafy.happyhouse.entity.User;
+import com.ssafy.happyhouse.entity.WatchList;
 import com.ssafy.happyhouse.entity.board.Sido;
+import com.ssafy.happyhouse.entity.house.HouseDeal;
+import com.ssafy.happyhouse.entity.house.HouseInfo;
 import com.ssafy.happyhouse.repository.HouseRepository;
 import com.ssafy.happyhouse.repository.UserRepository;
+import com.ssafy.happyhouse.repository.WatchListRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +24,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -27,6 +35,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final HouseRepository houseRepository;
+    private final WatchListRepository watchListRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
@@ -100,5 +109,43 @@ public class UserService {
         User user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("사용자 정복가 존재하지 않습니다."));
         userRepository.delete(user);
         return 1;
+    }
+
+    public List<WatchListDto> userWatchList(Long id) {
+        List<WatchList> result = watchListRepository.findWatchListbyUserId(id);
+
+        return result.stream().map(w -> {
+            WatchListDto watchListDto = new WatchListDto();
+            watchListDto.setId(w.getId());
+            HouseInfo hi = w.getHouseInfo();
+            watchListDto.setHouseInfo(new HouseInfoDto(hi.getAptCode(), hi.getAptName(),
+                    hi.getDong().getDongCode(), hi.getDong().getDongName(),
+                    hi.getBuildYear(), hi.getJibun(), hi.getLat(), hi.getLng(),
+                    hi.getDong().getGugunName() + " " + hi.getDongName() + " " + hi.getAptName() + "아파트",
+                    hi.getRoadName() + " " + String.valueOf(Long.parseLong(hi.getRoadNameBonbun() == null ? "0" : hi.getRoadNameBonbun()))));
+            List<HouseDealDto> houseDealDtoList = houseRepository.getHouseDeal(hi.getAptCode()).stream()
+                    .map(hd -> new HouseDealDto(hd.getId(), hd.getHouseInfo().getAptName(), hd.getDealAmount().trim(), hd.getDealYear(), hd.getDealMonth(),
+                            hd.getDealDay(), String.valueOf(Math.round(Float.parseFloat(hd.getArea()))), hd.getFloor()))
+                    .collect(Collectors.toList());
+            watchListDto.setHouseDealList(houseDealDtoList);
+            return watchListDto;
+        }).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void addWatchList(Long userId, Long aptCode) {
+        HouseInfo houseInfo = houseRepository.getApt(aptCode);
+        User user = userRepository.getById(userId);
+
+        WatchList watchList = new WatchList();
+        watchList.setHouseInfo(houseInfo);
+        watchList.setUser(user);
+
+        watchListRepository.save(watchList);
+    }
+
+    @Transactional
+    public void removeWatchList(Long watchListId) {
+        watchListRepository.removeWatchList(watchListId);
     }
 }

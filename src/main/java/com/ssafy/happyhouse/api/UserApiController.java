@@ -1,9 +1,12 @@
 package com.ssafy.happyhouse.api;
 
+import com.ssafy.happyhouse.dto.house.HouseInfoDto;
 import com.ssafy.happyhouse.dto.house.SidoDto;
 import com.ssafy.happyhouse.dto.user.TokenDto;
 import com.ssafy.happyhouse.dto.user.UserDto;
 import com.ssafy.happyhouse.dto.user.UserUpdateDto;
+import com.ssafy.happyhouse.dto.user.WatchListDto;
+import com.ssafy.happyhouse.entity.WatchList;
 import com.ssafy.happyhouse.jwt.PrincipalDetails;
 import com.ssafy.happyhouse.repository.HouseRepository;
 import com.ssafy.happyhouse.service.UserService;
@@ -36,18 +39,35 @@ public class UserApiController {
         return new ResponseEntity<>(userService.join(userDto), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<UserDto> user(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<UserDto> user(@PathVariable Long userId) {
+        return new ResponseEntity<>(userService.getUser(userId), HttpStatus.OK);
     }
 
-    @PutMapping("/user/{id}")
-    public ResponseEntity<TokenDto> updateUser(@PathVariable Long id, @RequestBody UserUpdateDto updateDto) {
-        return new ResponseEntity<>(userService.updateUser(id, updateDto), HttpStatus.OK);
+    @PutMapping("/user/{userId}")
+    public ResponseEntity<TokenDto> updateUser(@PathVariable Long userId, @RequestBody UserUpdateDto updateDto) {
+        return new ResponseEntity<>(userService.updateUser(userId, updateDto), HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/{id}")
-    public ResponseEntity<Integer> deleteUser(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.OK);
+    @DeleteMapping("/user/{userId}")
+    public ResponseEntity<Integer> deleteUser(@PathVariable Long userId) {
+        return new ResponseEntity<>(userService.deleteUser(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{userId}/watchlist")
+    public ResponseEntity<List<WatchListDto>> getUserWatchList(@PathVariable Long userId) {
+        return new ResponseEntity<>(userService.userWatchList(userId), HttpStatus.OK);
+    }
+
+    @PostMapping("/user/{userId}/watchlist")
+    public ResponseEntity<String> addWatchList(@PathVariable Long userId, @RequestBody WatchListDto watchListDto) {
+        userService.addWatchList(userId, watchListDto.getAptCode());
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/user/{userId}/watchlist/{watchListId}")
+    public ResponseEntity<String> removeWatchList(@PathVariable Long watchListId) {
+        userService.removeWatchList(watchListId);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 }

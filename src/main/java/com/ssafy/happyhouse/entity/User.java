@@ -1,5 +1,6 @@
 package com.ssafy.happyhouse.entity;
 
+import com.ssafy.happyhouse.entity.board.Sido;
 import com.ssafy.happyhouse.entity.house.Dong;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +32,9 @@ public class User {
 
     private String roles;
 
-    private String sidoName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sido_code")
+    private Sido sido;
 
     public User(String userId, String password) {
         this.userId = userId;
@@ -39,12 +42,11 @@ public class User {
     }
 
     @Builder
-    public User(String userName, String password, String nickName, String email, String sidoName) {
+    public User(String userName, String password, String nickName, String email) {
         this.userId = userName;
         this.password = password;
         this.nickName = nickName;
         this.email = email;
-        this.sidoName = sidoName;
         setRoleUser();
     }
 

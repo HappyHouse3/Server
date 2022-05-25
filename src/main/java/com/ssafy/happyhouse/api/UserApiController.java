@@ -1,9 +1,11 @@
 package com.ssafy.happyhouse.api;
 
+import com.ssafy.happyhouse.dto.house.SidoDto;
 import com.ssafy.happyhouse.dto.user.TokenDto;
 import com.ssafy.happyhouse.dto.user.UserDto;
 import com.ssafy.happyhouse.dto.user.UserUpdateDto;
 import com.ssafy.happyhouse.jwt.PrincipalDetails;
+import com.ssafy.happyhouse.repository.HouseRepository;
 import com.ssafy.happyhouse.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,12 @@ import java.util.List;
 public class UserApiController {
 
     private final UserService userService;
+    private final HouseRepository houseRepository;
+
+    @GetMapping("/signup")
+    public ResponseEntity<List<SidoDto>> joinGetRequestDto() {
+        return new ResponseEntity<>(houseRepository.getSido(), HttpStatus.OK);
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<UserDto> join(@RequestBody UserDto userDto) {

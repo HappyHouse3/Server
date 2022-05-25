@@ -62,7 +62,7 @@ public class HouseRepository {
     }
 
     public Dong findDongbyDongCode(String dongCode) {
-        return em.createQuery("select d from Dong d where d.dongCode = :dongCode", Dong.class)
+        return em.createQuery("select d from Dong d where d.dongCode = :dongCode and d.dongName is not null", Dong.class)
                 .setParameter("dongCode", dongCode)
                 .getSingleResult();
     }

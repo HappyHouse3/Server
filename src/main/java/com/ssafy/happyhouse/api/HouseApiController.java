@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-public class HouseApiController {
+public class HouseApiController extends HouseService {
 
     private final HouseService houseService;
 
@@ -61,7 +61,7 @@ public class HouseApiController {
     }
 
     @PutMapping("/apt/{aptCode}/review/{reviewId}")
-    public ResponseEntity<String> updateAptReview(@PathVariable Long aptCode, @PathVariable Integer reviewId, @RequestBody ReviewUpdateDto reviewUpdateDto) throws Exception {
+    public ResponseEntity<String> updateAptReview(@PathVariable String aptCode, @PathVariable Integer reviewId, @RequestBody ReviewUpdateDto reviewUpdateDto) throws Exception {
         try {
             houseService.updateReview(reviewId, reviewUpdateDto);
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class HouseApiController {
     }
 
     @DeleteMapping("/apt/{aptCode}/review/{reviewId}")
-    public ResponseEntity<String> deleteAptReview(@PathVariable Long aptCode, @PathVariable Integer reviewId) throws Exception {
+    public ResponseEntity<String> deleteAptReview(@PathVariable String aptCode, @PathVariable Integer reviewId) throws Exception {
         try {
             houseService.DeleteReview(reviewId);
         } catch (Exception e) {

@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class BoardService {
+public abstract class BoardService extends RegionBoardService implements UserRepository, ReplyRespository {
 
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;

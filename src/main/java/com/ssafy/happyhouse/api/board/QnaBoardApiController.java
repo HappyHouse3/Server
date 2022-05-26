@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 @RequestMapping("/api/qna")
 @RestController
-public class QnaBoardApiController {
+public abstract class QnaBoardApiController extends BoardService {
 
     private final BoardService boardService;
 

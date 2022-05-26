@@ -1,6 +1,7 @@
 package com.ssafy.happyhouse.service.board;
 
 import com.ssafy.happyhouse.dto.board.*;
+import com.ssafy.happyhouse.dto.user.UserUpdateDto;
 import com.ssafy.happyhouse.entity.User;
 import com.ssafy.happyhouse.entity.board.Board;
 import com.ssafy.happyhouse.entity.board.RegionBoard;

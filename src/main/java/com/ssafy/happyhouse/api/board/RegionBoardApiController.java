@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/{sidoCode}/regionboard")
 @RestController
-public class RegionBoardApiController {
+public abstract class RegionBoardApiController {
 
     private final RegionBoardService boardService;
 

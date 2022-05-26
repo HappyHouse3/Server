@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
         String token = JWT.create()
                 .withSubject("cosToken")
-                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24)))
+                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 1000)))
                 .withClaim("userNo", principalDetails.getUser().getId())
                 .withClaim("userId", principalDetails.getUser().getUserName())
                 .withClaim("nickName", principalDetails.getUser().getNickName())

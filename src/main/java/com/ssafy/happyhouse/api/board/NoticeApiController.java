@@ -3,6 +3,7 @@ package com.ssafy.happyhouse.api.board;
 import com.ssafy.happyhouse.dto.board.BoardDto;
 import com.ssafy.happyhouse.dto.board.BoardInputDto;
 import com.ssafy.happyhouse.dto.board.BoardUpdateDto;
+import com.ssafy.happyhouse.service.board.BoardService;
 import com.ssafy.happyhouse.service.board.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 @RequestMapping("/api/notice")
 @RestController
-public class NoticeApiController {
+public abstract class NoticeApiController extends BoardService {
 
     private final NoticeService boardService;
 

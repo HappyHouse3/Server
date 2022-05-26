@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class HouseService {
+public abstract class HouseService extends HouseRepository {
 
     private final HouseRepository houseRepository;
     private final UserRepository userRepository;

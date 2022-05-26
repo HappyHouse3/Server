@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class UserService {
+public abstract class UserService extends WatchListRepository implements UserRepository {
 
     private final UserRepository userRepository;
     private final HouseRepository houseRepository;
@@ -75,7 +75,7 @@ public class UserService {
                 .password(user.getPassword())
                 .nickName(user.getNickName())
                 .email(user.getEmail())
-                .sidoName(user.getNickName())
+                .sidoName(user.getSido().getSidoName())
                 .sidoCode(user.getSido().getSidoCode())
                 .build();
     }
@@ -134,6 +134,8 @@ public class UserService {
 
     @Transactional
     public void addWatchList(Long userId, Long aptCode) {
+        System.out.println("UserService.addWatchList");
+        log.info("UserService.addWatchList aptCode={}", aptCode);
         HouseInfo houseInfo = houseRepository.getApt(aptCode);
         User user = userRepository.getById(userId);
 

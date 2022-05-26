@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class UserApiController {
+public class UserApiController extends UserService {
 
     private final UserService userService;
     private final HouseRepository houseRepository;
@@ -39,34 +39,34 @@ public class UserApiController {
         return new ResponseEntity<>(userService.join(userDto), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<UserDto> user(@PathVariable Long userId) {
-        return new ResponseEntity<>(userService.getUser(userId), HttpStatus.OK);
+    @GetMapping("/user/{userNo}")
+    public ResponseEntity<UserDto> user(@PathVariable Long userNo) {
+        return new ResponseEntity<>(userService.getUser(userNo), HttpStatus.OK);
     }
 
-    @PutMapping("/user/{userId}")
-    public ResponseEntity<TokenDto> updateUser(@PathVariable Long userId, @RequestBody UserUpdateDto updateDto) {
+    @PutMapping("/user/{userNo}")
+    public ResponseEntity<TokenDto> updateUser(@PathVariable Long userNo, @RequestBody UserUpdateDto updateDto) {
         log.info("Input : {}", updateDto);
-        return new ResponseEntity<>(userService.updateUser(userId, updateDto), HttpStatus.OK);
+        return new ResponseEntity<>(userService.updateUser(userNo, updateDto), HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/{userId}")
-    public ResponseEntity<Integer> deleteUser(@PathVariable Long userId) {
-        return new ResponseEntity<>(userService.deleteUser(userId), HttpStatus.OK);
+    @DeleteMapping("/user/{userNo}")
+    public ResponseEntity<Integer> deleteUser(@PathVariable Long userNo) {
+        return new ResponseEntity<>(userService.deleteUser(userNo), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{userId}/watchlist")
-    public ResponseEntity<List<WatchListDto>> getUserWatchList(@PathVariable Long userId) {
-        return new ResponseEntity<>(userService.userWatchList(userId), HttpStatus.OK);
+    @GetMapping("/user/{userNo}/watchlist")
+    public ResponseEntity<List<WatchListDto>> getUserWatchList(@PathVariable Long userNo) {
+        return new ResponseEntity<>(userService.userWatchList(userNo), HttpStatus.OK);
     }
 
-    @PostMapping("/user/{userId}/watchlist")
-    public ResponseEntity<String> addWatchList(@PathVariable Long userId, @RequestBody WatchListDto watchListDto) {
-        userService.addWatchList(userId, watchListDto.getAptCode());
+    @PostMapping("/user/{userNo}/watchlist")
+    public ResponseEntity<String> addWatchList(@PathVariable Long userNo, @RequestBody WatchListDto watchListDto) {
+        userService.addWatchList(userNo, watchListDto.getAptCode());
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/{userId}/watchlist/{watchListId}")
+    @DeleteMapping("/user/{userNo}/watchlist/{watchListId}")
     public ResponseEntity<String> removeWatchList(@PathVariable Long watchListId) {
         userService.removeWatchList(watchListId);
         return new ResponseEntity<>("success", HttpStatus.OK);
